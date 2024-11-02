@@ -12,8 +12,8 @@ class ListTransacciones extends AdminComponent
 {
     public $state = [];
 
-    public $userId;
-    public $comercioId; 
+    public $user_id;
+    public $comercio_id; 
 
     public $trans;
 
@@ -64,14 +64,14 @@ class ListTransacciones extends AdminComponent
     public $status = 'all';
         
 
-    public function mount($comercioId)
+    public function mount($comercio_id)
     {
-        $this->comercioId = $comercioId;
-        if($comercioId > 0){
-            $comercio = Comercio::find($comercioId);
-            $this->userId = $comercio->userId;
+        $this->comercio_id = $comercio_id;
+        if($comercio_id > 0){
+            $comercio = Comercio::find($comercio_id);
+            $this->user_id = $comercio->user_id;
         }else{
-            $this->userId = 1;
+            $this->user_id = 1;
         }
         
         
@@ -93,19 +93,19 @@ class ListTransacciones extends AdminComponent
 
     public function addNew()
     {
-        $comercioId = $this->comercioId;
+        $comercio_id = $this->comercio_id;
         $metodoPago = $this->metodoPago;
-        $userId = $this->userId;
+        $user_id = $this->user_id;
 
 		$this->reset();
 
-        $this->comercioId = $comercioId;
+        $this->comercio_id = $comercio_id;
         $this->metodoPago = $metodoPago;
-        $this->userId = $userId;
+        $this->user_id = $user_id;
 
         $this->showEditModal = false;
 
-        $this->state['userId'] = $this->userId;
+        $this->state['user_id'] = $this->user_id;
         $this->state['modopago'] = '0';
         $this->state['status'] = 'norevisado';
 
@@ -117,8 +117,8 @@ class ListTransacciones extends AdminComponent
     public function createTrans()
     {
         $validatedData = Validator::make($this->state, [
-            'userId'  => 'required',
-            'clienteId'  => 'required',
+            'user_id'  => 'required',
+            'cliente_id'  => 'required',
             'status' => 'required',
             'codigoFactura' => 'required',
             'metodo'  => 'required',
@@ -130,7 +130,7 @@ class ListTransacciones extends AdminComponent
             'amount'  => 'required',
         ])->validate();
         
-        $validatedData['comercioId'] = $this->comercioId;
+        $validatedData['comercio_id'] = $this->comercio_id;
         $validatedData['banco'] = $this->buscarBanco($validatedData['codigo']);
 
         Transaccion::create($validatedData);
@@ -271,15 +271,15 @@ class ListTransacciones extends AdminComponent
     public function edit(Transaccion $trans1)
     {        
         dd($this->state);
-        $comercioId = $this->comercioId;
+        $comercio_id = $this->comercio_id;
         $metodoPago = $this->metodoPago;
-        $userId = $this->userId;
+        $user_id = $this->user_id;
 
 		$this->reset();
 
-        $this->comercioId = $comercioId;
+        $this->comercio_id = $comercio_id;
         $this->metodoPago = $metodoPago;
-        $this->userId = $userId;
+        $this->user_id = $user_id;
 
         $this->showEditModal = true;
 
@@ -294,8 +294,8 @@ class ListTransacciones extends AdminComponent
     {
         
         $validatedData = Validator::make($this->state, [
-            'userId'  => 'required',
-            'clienteId'  => 'required',
+            'user_id'  => 'required',
+            'cliente_id'  => 'required',
             'status' => 'required',
             'codigoFactura' => 'required',
             'metodo'  => 'required',
@@ -370,16 +370,16 @@ class ListTransacciones extends AdminComponent
                 $q->where('reference', 'like', '%'.$this->searchTerm.'%')
                 ->orWhere('metodo', 'like', '%'.$this->searchTerm.'%');
             });
-        if($this->userId > 1){
+        if($this->user_id > 1){
             $transacciones = $transacciones
-                ->where('id', $this->comercioId);       
+                ->where('comercio_id', $this->comercio_id);       
         }
         
         $transacciones = $transacciones
             ->orderBy($this->sortColumnName, $this->sortDirection)
             ->paginate(15);
         
-        $comercio = Comercio::find($this->comercioId);
+        $comercio = Comercio::find($this->comercio_id);
 
 
         return view('livewire.transaccion.list-transacciones', [

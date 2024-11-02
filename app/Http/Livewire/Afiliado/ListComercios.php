@@ -18,7 +18,7 @@ class ListComercios extends AdminComponent
 
 	public $showEditModal = false;
 
-	public $comercioIdBeingRemoved = null;
+	public $comercio_idBeingRemoved = null;
 
 	public $searchTerm = null;
 
@@ -28,11 +28,11 @@ class ListComercios extends AdminComponent
 
     public $sortDirection = 'desc';
 
-    public $userId = 0;
+    public $user_id = 0;
 
-    public function mount($userId = 0)
+    public function mount($user_id = 0)
     {
-        $this->userId = $userId;
+        $this->user_id = $user_id;
     }
 
 	public function changeRole(Comercio $comercio, $status)
@@ -51,11 +51,11 @@ class ListComercios extends AdminComponent
 
 	public function addNew()
 	{   
-        $userId = $this->userId;
+        $user_id = $this->user_id;
 
 		$this->reset();
 
-        $this->userId = $userId;
+        $this->user_id = $user_id;
 
 		$this->showEditModal = false;
 
@@ -68,7 +68,7 @@ class ListComercios extends AdminComponent
 			'name' => 'required',
 		])->validate();
 
-        $validatedData['userId'] = $this->userId;
+        $validatedData['user_id'] = $this->user_id;
 
 		Comercio::create($validatedData);
 
@@ -79,11 +79,11 @@ class ListComercios extends AdminComponent
 
 	public function edit(Comercio $comercio)
 	{
-		$userId = $this->userId;
+		$user_id = $this->user_id;
 
 		$this->reset();
 
-        $this->userId = $userId;
+        $this->user_id = $user_id;
 
 		$this->showEditModal = true;
 
@@ -105,16 +105,16 @@ class ListComercios extends AdminComponent
 		$this->dispatchBrowserEvent('hide-form', ['message' => 'Comercio actualizado satisfactoriamente!']);
 	}
 
-	public function confirmComercioRemoval($comercioId)
+	public function confirmComercioRemoval($comercio_id)
 	{
-		$this->comercioIdBeingRemoved = $comercioId;
+		$this->comercio_idBeingRemoved = $comercio_id;
 
 		$this->dispatchBrowserEvent('show-delete-modal');
 	}
 
 	public function deleteComercio()
 	{
-		$user = User::findOrFail($this->userIdBeingRemoved);
+		$user = User::findOrFail($this->user_idBeingRemoved);
 
 		$user->delete();
 
@@ -144,11 +144,11 @@ class ListComercios extends AdminComponent
 
     public function render()
     {
-        if($this->userId == 0 ){
+        if($this->user_id == 0 ){
             $comercios = Comercio::query();
         }else{
             $comercios = Comercio::query()
-                ->where('userId', $this->userId);
+                ->where('user_id', $this->user_id);
         }
         
     	$comercios = $comercios
@@ -158,7 +158,7 @@ class ListComercios extends AdminComponent
     		->orderBy($this->sortColumnName, $this->sortDirection)
             ->paginate(5);
         
-        $user = User::find($this->userId);
+        $user = User::find($this->user_id);
 		
         return view('livewire.afiliado.list-comercios', [
             'user'  => $user,

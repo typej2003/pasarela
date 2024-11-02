@@ -29,12 +29,12 @@ class ListMetodosPagosC extends AdminComponent
 
     public $sortDirection = 'desc';
 
-    public $comercioId = 0;
+    public $comercio_id = 0;
     public $metodoId = 0;
 
-    public function mount($comercioId = 0)
+    public function mount($comercio_id = 0)
     {
-        $this->comercioId = $comercioId;
+        $this->comercio_id = $comercio_id;
     }
 
 	public function changeRole(Comercio $comercio, $status)
@@ -54,12 +54,12 @@ class ListMetodosPagosC extends AdminComponent
 	public function addNew()
 	{   
         $metodoId = $this->metodoId;
-        $comercioId = $this->comercioId;
+        $comercio_id = $this->comercio_id;
 
 		$this->reset();
 
         $this->metodoId = $metodoId;
-        $this->comercioId = $comercioId;
+        $this->comercio_id = $comercio_id;
 
 		$this->showEditModal = false;
 
@@ -72,7 +72,7 @@ class ListMetodosPagosC extends AdminComponent
 			'metodopago' => 'required',
 		])->validate();
 
-        $validatedData['comercioId'] = $this->comercioId;
+        $validatedData['comercio_id'] = $this->comercio_id;
 
 		MetodoPagoC::create($validatedData);
 
@@ -83,12 +83,12 @@ class ListMetodosPagosC extends AdminComponent
 
 	public function edit(MetodoPagoC $metodo)
 	{
-		$comercioId = $this->comercioId;
+		$comercio_id = $this->comercio_id;
         $metodoId = $this->metodoId;
 
 		$this->reset();
 
-        $this->comercioId = $comercioId;
+        $this->comercio_id = $comercio_id;
         $this->metodoId = $metodoId;
 
 		$this->showEditModal = true;
@@ -150,11 +150,11 @@ class ListMetodosPagosC extends AdminComponent
 
     public function render()
     {
-        if($this->comercioId == 0 ){
+        if($this->comercio_id == 0 ){
             $metodos = MetodoPagoC::query();
         }else{
             $metodos = MetodoPagoC::query()
-                ->where('comercioId', $this->comercioId);
+                ->where('comercio_id', $this->comercio_id);
         }
         
     	$metodos = $metodos
@@ -164,7 +164,7 @@ class ListMetodosPagosC extends AdminComponent
     		->orderBy($this->sortColumnName, $this->sortDirection)
             ->paginate(15);
         
-        $comercio = Comercio::find($this->comercioId);
+        $comercio = Comercio::find($this->comercio_id);
 		
         return view('livewire.afiliado.list-metodos-pagos-c', [
             'comercio'  => $comercio,

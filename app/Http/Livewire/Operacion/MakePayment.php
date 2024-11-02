@@ -6,11 +6,11 @@ use Livewire\Component;
 
 class MakePayment extends Component
 {
-    public $comercioId;
+    public $comercio_id;
     
-    public function mount($comercioId=0)
+    public function mount($comercio_id=0)
     {
-        $this->comercioId = $comercioId;
+        $this->comercio_id = $comercio_id;
     }
     public function render()
     {

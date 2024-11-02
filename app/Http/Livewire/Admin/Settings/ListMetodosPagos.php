@@ -27,7 +27,7 @@ class ListMetodosPagos extends AdminComponent
 
     public $sortDirection = 'desc';
 
-    public $comercioId = 0;
+    public $comercio_id = 0;
     public $metodoId = 0;
 
     

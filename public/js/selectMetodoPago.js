@@ -1001,8 +1001,8 @@ function enviarPagoMovil(){
     if(controlPagoMovil()){
         let objeto= {'metodo': 'pagomovil'}
         objeto['currency'] = 1
-        objeto['clienteId'] = clienteId
-        objeto['comercioId'] = comercioId
+        objeto['cliente_id'] = cliente_id
+        objeto['comercio_id'] = comercio_id
         
         document.querySelectorAll('.formPM input').forEach((input, i) => {
             let name = input.id + ''
@@ -1272,9 +1272,9 @@ function showFormGrupoTransferencia()
 function enviarTransferencia(){
     if(controlTransferencia()){
         let objeto= {'metodo': 'transferencia'}
-        objeto['clienteId'] = clienteId
+        objeto['cliente_id'] = cliente_id
         objeto['currency'] = 1
-        objeto['comercioId'] = comercioId
+        objeto['comercio_id'] = comercio_id
         
         document.querySelectorAll('.formT input').forEach((input, i) => {
             let name = input.id + ''
@@ -1495,9 +1495,9 @@ function showFormGrupoZelle()
 function enviarZelle(){
     if(controlZelle()){
         let objeto= {'metodo': 'zelle'}
-        objeto['clienteId'] = clienteId
+        objeto['cliente_id'] = cliente_id
         objeto['currency'] = 1
-        objeto['comercioId'] = comercioId
+        objeto['comercio_id'] = comercio_id
         objeto['codigo'] = ''
         
         document.querySelectorAll('.formZelle input').forEach((input, i) => {

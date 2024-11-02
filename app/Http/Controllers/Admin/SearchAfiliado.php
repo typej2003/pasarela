@@ -33,17 +33,17 @@ class SearchAfiliado extends Controller
 
     public function enviarData(Request $request){
 
-        $comercioId = 0;
+        $comercio_id = 0;
 
         $operacion = $request->get('datos');
 
-        $comercioId = $operacion['comercioId'];
+        $comercio_id = $operacion['comercio_id'];
         
-        if($comercioId == 0)
-            return response(['operacion'=>'false','comercioId'=>$comercioId]);
+        if($comercio_id == 0)
+            return response(['operacion'=>'false','comercio_id'=>$comercio_id]);
 
-        $comercio = Comercio::find($comercioId);
-        $operacion['userId'] = $comercio->userId;
+        $comercio = Comercio::find($comercio_id);
+        $operacion['user_id'] = $comercio->user_id;
 
         if($operacion['codigo'])
             $operacion['banco'] = $this->buscarBanco($operacion['codigo']);

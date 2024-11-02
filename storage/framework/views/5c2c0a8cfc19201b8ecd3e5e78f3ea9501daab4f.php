@@ -115,8 +115,8 @@
                                     <?php $__empty_1 = true; $__currentLoopData = $transacciones; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $trans): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                                     <tr>
                                         <th scope="row"><?php echo e($transacciones->firstItem() + $index); ?></th>
-                                        <td><?php echo e($trans->userId); ?></td>
-                                        <td><?php echo e($trans->clienteId); ?></td>
+                                        <td><?php echo e($trans->user_id); ?></td>
+                                        <td><?php echo e($trans->cliente_id); ?></td>
                                         <td>
                                             <select style="width: 150px;" class="form-control" wire:change="changeStatus(<?php echo e($trans); ?>, $event.target.value)">
                                                 <option value="confirmed" <?php echo e(($trans->status === 'confirmed') ? 'selected' : ''); ?>>CONFIRMADO</option>

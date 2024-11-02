@@ -40,13 +40,11 @@ class ProcesadoController extends Controller
           $paymentDate = date('Y-m-d H:i:s', strtotime($datos->paymentDate));
     
           $transaccion = Transaccion::create([
-           'userId' => $reference,
            'paymentId' => $token,
-           'comercioId' => 1,
+           'comercio_id' => 1,
            'identificationNumber' => $datos->idNumber,
-           'id_transaccion' => $datos->transactionId,
            'reference' => $datos->reference,
-           'totalbs' => $datos->amount,
+           'amount' => $datos->amount,
            'fechaPago' => $paymentDate,
            'title' => $datos->title,
            'description' => $datos->description,

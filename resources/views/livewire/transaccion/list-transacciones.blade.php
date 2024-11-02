@@ -103,8 +103,8 @@
                                     @forelse ($transacciones as $index => $trans)
                                     <tr>
                                         <th scope="row">{{ $transacciones->firstItem() + $index }}</th>
-                                        <td>{{ $trans->userId }}</td>
-                                        <td>{{ $trans->clienteId }}</td>
+                                        <td>{{ $trans->user_id }}</td>
+                                        <td>{{ $trans->cliente_id }}</td>
                                         <td>
                                             <select style="width: 150px;" class="form-control" wire:change="changeStatus({{ $trans }}, $event.target.value)">
                                                 <option value="confirmed" {{ ($trans->status === 'confirmed') ? 'selected' : '' }}>CONFIRMADO</option>

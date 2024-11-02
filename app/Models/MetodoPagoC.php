@@ -10,7 +10,7 @@ class MetodoPagoC extends Model
     use HasFactory;
 
     protected $fillable = [
-        'comercioId',
+        'comercio_id',
         'metodopago',
         'tipocuenta',
         'marcaInternaciona',

@@ -1,6 +1,6 @@
 var path = 'file:///C:/Users/Personal/Desktop/metodopago/'
 var datosCliente = {
-    'userId': 0,
+    'user_id': 0,
     'codigoFactura': '',
     'monto': 0,
 }
@@ -80,7 +80,9 @@ var bancosAsociadosZelle =  [
     }
 ]
 
-var clienteId = 0;
+var user_id = 1;
+var comercio_id = 1;
+var cliente_id = 0;
 var currency = 1; // Bolivar
 var amount = 1;
 var reference = '12345678';

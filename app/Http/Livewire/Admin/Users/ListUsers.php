@@ -19,7 +19,7 @@ class ListUsers extends AdminComponent
 
 	public $showEditModal = false;
 
-	public $userIdBeingRemoved = null;
+	public $user_idBeingRemoved = null;
 
 	public $searchTerm = null;
 
@@ -112,16 +112,16 @@ class ListUsers extends AdminComponent
 		$this->dispatchBrowserEvent('hide-form', ['message' => 'Usuario actualizado satisfactoriamente!']);
 	}
 
-	public function confirmUserRemoval($userId)
+	public function confirmUserRemoval($user_id)
 	{
-		$this->userIdBeingRemoved = $userId;
+		$this->user_idBeingRemoved = $user_id;
 
 		$this->dispatchBrowserEvent('show-delete-modal');
 	}
 
 	public function deleteUser()
 	{
-		$user = User::findOrFail($this->userIdBeingRemoved);
+		$user = User::findOrFail($this->user_idBeingRemoved);
 
 		$user->delete();
 

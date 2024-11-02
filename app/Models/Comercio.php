@@ -19,26 +19,26 @@ class Comercio extends Model
      */
     protected $fillable = [
         'name',
-        'userId',
+        'user_id',
     ];
 
     public function propietario()
     {
-        $propietario = User::find($this->userId);
+        $propietario = User::find($this->user_id);
         return $propietario->name;
         
     }
 
     public function getPropietario()
     {
-        $propietario = User::find($this->userId);
+        $propietario = User::find($this->user_id);
         return $propietario;        
     }
 
     public function OperacionNoConfirmada()
     {
         return Transaccion::query()
-            ->where('comercioId', $this->id)
+            ->where('comercio_id', $this->id)
             ->where('status', 'norevisado')
             ->count();
     }
