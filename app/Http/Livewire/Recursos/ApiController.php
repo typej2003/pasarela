@@ -17,6 +17,16 @@ class ApiController extends Component
     public $titulo= '1';
     public $descripcion= '1';
 
+	public $tokenId;
+
+	public $id_suc;
+
+	public function procesado(Request $request)
+	{
+		$this->tokenId = $request->get('ID');
+		return view('livewire.recursos.procesado');
+	}
+
     public function render()
     {
         return view('livewire.recursos.Index');
@@ -76,7 +86,7 @@ class ApiController extends Component
 		//$Payment->urlToReturn= "https://panexpres.com/pagosatisfactorio/{ID}";
 
 		//$Payment->urlToReturn= "http://localhost:8585/";
-		$Payment->urlToReturn= "http://127.0.0.1:8000/api/apicontroller";
+		$Payment->urlToReturn= "https://ginecoreport.com/pagosatisfactorio/{ID}";
 
 		$Payment->rifLetter= $request->get('rifLetter') ?? ''; //Letra de la cédula - V, E o P
 		$Payment->rifNumber= $request->get('rifNumber') ?? ''; //Número de cédula

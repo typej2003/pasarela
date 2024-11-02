@@ -3,9 +3,28 @@
 namespace App\Http\Livewire\Operacion;
 
 use Livewire\Component;
+use Illuminate\Http\Request;
 
 class Pasarela extends Component
 {
+    public $id_suc; 
+
+    public function mount(Request $request)
+	{
+		$this->tokenId = $request->get('ID');
+
+        $this->id_suc = $request->get('ID'); 
+		
+	}
+
+    public function procesado(Request $request)
+	{
+		$this->tokenId = $request->get('ID');
+
+        $this->id_suc = $request->get('ID'); 
+		
+	}
+
     public function autocompleteClientePasarela(Request $request)
     {
         if($request->get('campo')=='cedula'){

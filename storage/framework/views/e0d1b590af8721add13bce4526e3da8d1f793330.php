@@ -34,7 +34,26 @@
     <div class="row">
         <div class="col-lg-12">
             <nav class="nav w-100">
-                
+                <form action="/" method="POST">
+                    <?php echo csrf_field(); ?>
+                    <div class="container-fluid">
+                        <div class="col-md-10">
+                            <div class="row border border-secondary ">
+
+                                <h1>Operacion Satisfactoria <br> <?php echo e($id_suc); ?></h1>
+
+                                    <br>
+                                    <br>
+                                    </h5>
+                                    <div class="col-6">
+                                        <input type="submit" class="btn btn-success" value="Continuar">
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+
             </nav>
         </div>
     </div>

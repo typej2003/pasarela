@@ -946,10 +946,17 @@ function createPayment() {
                 $('#btnNewPayment').show();
 
                 let bloqueP = document.getElementById('bloqueP')
-                let iframe = document.createElement('iframe')
-                iframe.width = '420px;'
-                iframe.height = '600px;'
-                bloqueP.appendChild(iframe)
+                
+
+                let cadena = `<iframe id="ventana" width="420px" height="620px" wire:ignore></iframe>`
+
+                bloqueP.innerHTML= cadena
+
+                //bloqueP.appendChild(iframe)
+                // let iframe = document.createElement('iframe')
+                // iframe.width = '420px;'
+                // iframe.height = '600px;'
+                let iframe = document.querySelector('#ventana')
                 iframe.src = data.urlPayment
             }
             else {

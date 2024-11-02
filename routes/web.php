@@ -32,6 +32,7 @@ Route::get('/neg/{comercio}', SearchAfiliado::class)->name('searchafiliado');
 
 Route::get('/api/apicontroller', ApiController::class)->name('api.apicontroller')->middleware('auth');
 
+
 Route::get('/ProcessPaymentDemo/0', [ApiController::class, 'recibirDatos'])->name('ProcessPaymentDemo');
 
 Route::get('/CheckPaymentAjax/0', [ApiController::class, 'ChequePago'])->name('CheckPaymentAjax')->middleware('auth');

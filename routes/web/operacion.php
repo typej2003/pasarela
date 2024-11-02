@@ -11,3 +11,5 @@ Route::get('/MakePayment/{comercioId}', MakePayment::class)->name('MakePayment')
 Route::get('/pasarela', Pasarela::class)->name('pasarela')->middleware('auth');
 
 Route::get('/enviardataPasarela', [Pasarela::class, 'enviarData'])->name('enviardataPasarela');
+
+Route::get('/pagosatisfactorio/{ID}', Pasarela::class)->name('pagosatisfactorio');
