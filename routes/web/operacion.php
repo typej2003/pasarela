@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controller\Admin\ProcesadoController;
+use App\Http\Controllers\Admin\ProcesadoController;
 use App\Http\Livewire\Operacion\MakePayment;
 use App\Http\Livewire\Operacion\Pasarela;
 use App\Http\Livewire\Recursos\ApiController;

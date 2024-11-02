@@ -10,7 +10,7 @@ class ProcesadoController extends Controller
     public $tokenId;
 
 	public $id_suc;
-    
+
     public function pagosatisfactorio($id){
         $token = $id;
 
@@ -49,7 +49,7 @@ class ProcesadoController extends Controller
         //     ]);
         }
     
-        return view('procesado', ['id_suc' => $token, 'success' => $datos->success] );
+        return view('admin.procesado', ['id_suc' => $token, 'success' => $datos->success] );
     }
 }
 
