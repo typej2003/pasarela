@@ -57,4 +57,4 @@
     </nav>
     <?php endif; ?>
 </div>
-<?php /**PATH C:\Users\Personal\Documents\Proyectos\pasarela\resources\views/vendor/livewire/bootstrap.blade.php ENDPATH**/ ?>
+<?php /**PATH C:\Users\Personal\Documents\Proyectos\github\pasarela\resources\views/vendor/livewire/bootstrap.blade.php ENDPATH**/ ?>

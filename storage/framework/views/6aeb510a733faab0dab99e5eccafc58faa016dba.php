@@ -25,4 +25,4 @@
         </li>
     </ul>
 </nav>
-<?php /**PATH C:\Users\Personal\Documents\Proyectos\pasarela\resources\views/layouts/partials/navbar.blade.php ENDPATH**/ ?>
+<?php /**PATH C:\Users\Personal\Documents\Proyectos\github\pasarela\resources\views/layouts/partials/navbar.blade.php ENDPATH**/ ?>

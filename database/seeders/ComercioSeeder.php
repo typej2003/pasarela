@@ -16,7 +16,9 @@ class ComercioSeeder extends Seeder
     {
         DB::table('comercios')->insert([
             'userId' => '1',
-            'name' => 'comercio1',
+            'name' => 'ddrsistemas',
+            'created_at' => '2022-05-16 12:20:36',
+            'updated_at' => '2022-05-16 12:20:36'
         ]);
     }
 }

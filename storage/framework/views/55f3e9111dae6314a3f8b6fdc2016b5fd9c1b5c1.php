@@ -6,4 +6,4 @@
 	<!-- Default to the left -->
 	<strong>Copyright &copy; <?php echo e(date('Y')); ?> <a href="https://youtube.com/clovon" target="_blank">Clovon</a>.</strong> All rights reserved.
 </footer>
-<?php /**PATH C:\Users\Personal\Documents\Proyectos\pasarela\resources\views/layouts/partials/footer.blade.php ENDPATH**/ ?>
+<?php /**PATH C:\Users\Personal\Documents\Proyectos\github\pasarela\resources\views/layouts/partials/footer.blade.php ENDPATH**/ ?>

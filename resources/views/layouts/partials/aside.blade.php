@@ -23,23 +23,44 @@
           <a href="{{ route('admin.dashboard') }}" class="nav-link {{ request()->is('admin/dashboard') ? 'active' : '' }}">
             <i class="nav-icon fas fa-tachometer-alt"></i>
             <p>
-              Tablero
+              Escritorio
             </p>
           </a>
         </li>
-
+        <!-- PROBAR RECURSOS -->
         <li class="nav-item">
-          <a href="/api/apicontroller" class="nav-link {{ request()->is('api.apicontroller') ? 'active' : '' }}">
-            <i class="nav-icon fas fa-users"></i>
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-table"></i>
             <p>
-              Probar Api
+              Recursos
+              <i class="fas fa-angle-left right"></i>
             </p>
           </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="/api/apicontroller" class="nav-link {{ request()->is('api.apicontroller') ? 'active' : '' }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>
+                  Probar Api
+                </p>
+              </a>
+            </li>
+
+
+            <li class="nav-item">
+              <a href="{{ route('MakePayment', 0) }}" class="nav-link {{ request()->is('MakePayment') ? 'active' : '' }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>
+                  Hacer Operacion
+                </p>
+              </a>
+            </li>
+          </ul>
         </li>
 
         <li class="nav-item">
           <a href="/pasarela" class="nav-link {{ request()->is('pasarela') ? 'active' : '' }}">
-            <i class="nav-icon fas fa-users"></i>
+            <i class="far fa-circle nav-icon"></i>
             <p>
               Pasarela
             </p>
@@ -56,21 +77,33 @@
         </li>
 
         <li class="nav-item">
-          <a href="{{ route('listMetodosPagos') }}" class="nav-link {{ request()->is('listMetodosPagos') ? 'active' : '' }}">
+          <a href="{{ route('listComercios', 0) }}" class="nav-link {{ request()->is('listComercios') ? 'active' : '' }}">
             <i class="nav-icon fas fa-comments"></i>
             <p>
-              Métodos de Pagos
+              Comercios
             </p>
           </a>
         </li>
 
+        <!-- CONFIGURACION -->
         <li class="nav-item">
-          <a href="{{ route('listComercios', 0) }}" class="nav-link {{ request()->is('listComercios') ? 'active' : '' }}">
-            <i class="nav-icon fas fa-comments"></i>
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-table"></i>
             <p>
-              Afiliado / Comercios
+              Configuración
+              <i class="fas fa-angle-left right"></i>
             </p>
           </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{ route('listMetodosPagos') }}" class="nav-link {{ request()->is('listMetodosPagos') ? 'active' : '' }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>
+                  Métodos de Pagos
+                </p>
+              </a>
+            </li>
+          </ul>
         </li>
 
         <li class="nav-item">
@@ -83,19 +116,10 @@
         </li>
 
         <li class="nav-item">
-          <a href="{{ route('listTransacciones', 0) }}" class="nav-link {{ request()->is('listTransacciones') ? 'active' : '' }}">
-            <i class="nav-icon fas fa-comments"></i>
+          <a href="{{ route('listTransacciones', 1) }}" class="nav-link {{ request()->is('listTransacciones') ? 'active' : '' }}">
+          <i class="fa fa-solid fa-file-invoice-dollar"></i>
             <p>
               Transacciones
-            </p>
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a href="{{ route('MakePayment', 0) }}" class="nav-link {{ request()->is('MakePayment') ? 'active' : '' }}">
-            <i class="nav-icon fas fa-comments"></i>
-            <p>
-              Hacer Operacion
             </p>
           </a>
         </li>

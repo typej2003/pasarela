@@ -440,3 +440,56 @@ input:focus, select:focus, select, input.form-control:focus {
 
     /*** SELECT FALSO ***/
     
+    /***    INFO ZELLE      ***/
+    .cardPasos {
+        border: 2px solid var(--main-bg-color);
+        width: 100%;
+        min-height: 200px;
+        margin-top: 20px;
+    }
+    .tituloPasos {
+        background-color: var(--main-bg-color);
+        color: #fff;
+        font-weight: bold;
+        border-radius: 15px;
+        width: 200px;
+        padding: 5px;
+        z-index: 1;
+        margin-left: 8rem;
+    }
+    .negrita {
+        font-weight: bold;
+    }
+
+    .border-punteada {
+        border: 1px solid #000000;
+        width: 250px;
+        height: auto;
+        border-style: dashed;
+        border-radius: 15px;
+    }
+    .cuadroDolar {
+        background-color: #E7D8FA;
+        padding: 10px;
+        border-radius: 15px;
+    }
+    .exclamation-solid{
+        width: 10px;
+    }
+    .fontSize {
+        font-size: 14px;
+    }
+    .naranja {
+        color: #FC5E27;
+    }
+    .azulado {
+        color: var(--main-bg-color)
+    }
+    .marco {
+        width: 300px;
+    }
+
+    .border-azulado {
+        border: 1px solid var(--main-bg-color);
+        border-radius: 15px;
+    }

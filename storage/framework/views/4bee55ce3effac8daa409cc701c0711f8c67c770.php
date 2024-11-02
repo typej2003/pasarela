@@ -33,4 +33,4 @@
     </div>
 </div>
 <!-- ./col -->
-<?php /**PATH C:\Users\Personal\Documents\Proyectos\pasarela\resources\views/livewire/admin/dashboard/appointments-count.blade.php ENDPATH**/ ?>
+<?php /**PATH C:\Users\Personal\Documents\Proyectos\github\pasarela\resources\views/livewire/admin/dashboard/appointments-count.blade.php ENDPATH**/ ?>

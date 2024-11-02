@@ -3,8 +3,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">Transacciones</h1>
-                    <h2>{{$transacciones}}</h2>
+                    <h1 class="m-0 text-dark"><i class="fa fa-solid fa-file-invoice-dollar"></i> Transacciones</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -75,7 +74,7 @@
                                         <th scope="col">Código de Factura</th>
                                         <th scope="col" wire:ignore>
                                             <select wire:model.refer="metodoPago" class="form-control border-0" style="width:150px;font-weight: bold;" name="" id="">
-                                                <option value="all">Modo de Pago</option>
+                                                <option value="all">Método de Pago</option>
                                                 @foreach($modoPago as $metodo)
                                                     {{$valor = $metodo['modo']}}
                                                     <option value="{{$metodo['modo']}}" {{ ($metodoPago === $valor) ? 'selected' : '' }}> {{$metodo['nombre']}}</option> 
@@ -86,9 +85,9 @@
                                         <th scope="col">Referencia</th>
                                         <th scope="col">
                                             Cédula
-                                            <span wire:click="sortBy('cedula')" class="float-right text-sm" style="cursor: pointer;">
-                                                <i class="fa fa-arrow-up {{ $sortColumnName === 'cedula' && $sortDirection === 'asc' ? '' : 'text-muted' }}"></i>
-                                                <i class="fa fa-arrow-down {{ $sortColumnName === 'cedula' && $sortDirection === 'desc' ? '' : 'text-muted' }}"></i>
+                                            <span wire:click="sortBy('identificationNumber')" class="float-right text-sm" style="cursor: pointer;">
+                                                <i class="fa fa-arrow-up {{ $sortColumnName === 'identificationNumber' && $sortDirection === 'asc' ? '' : 'text-muted' }}"></i>
+                                                <i class="fa fa-arrow-down {{ $sortColumnName === 'identificationNumber' && $sortDirection === 'desc' ? '' : 'text-muted' }}"></i>
                                             </span>
                                         </th>
                                         <th scope="col">Teléfono</th>
@@ -116,7 +115,7 @@
                                             <span class="mr-2">{{ $trans->codigoFactura }}</span>
                                         </td>
                                         <td>
-                                            <span class="mr-2">{{ $trans->modopago }}</span>
+                                            <span class="mr-2">{{ $trans->metodo }}</span>
                                         </td>
                                         <td>{{ $trans->reference }}</td>
                                         <td>{{ $trans->identificationNumber }}</td>

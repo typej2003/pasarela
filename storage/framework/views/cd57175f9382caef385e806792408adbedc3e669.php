@@ -493,4 +493,4 @@
 
     </script>
 </body>
-</html><?php /**PATH C:\Users\Personal\Documents\Proyectos\pasarela\resources\views/livewire/recursos/Index.blade.php ENDPATH**/ ?>
+</html><?php /**PATH C:\Users\Personal\Documents\Proyectos\github\pasarela\resources\views/livewire/recursos/Index.blade.php ENDPATH**/ ?>

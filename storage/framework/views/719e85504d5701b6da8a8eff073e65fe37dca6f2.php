@@ -144,4 +144,4 @@
     }
 }
 </style>
-<?php $__env->stopPush(); ?><?php /**PATH C:\Users\Personal\Documents\Proyectos\pasarela\resources\views/components/search-input.blade.php ENDPATH**/ ?>
+<?php $__env->stopPush(); ?><?php /**PATH C:\Users\Personal\Documents\Proyectos\github\pasarela\resources\views/components/search-input.blade.php ENDPATH**/ ?>

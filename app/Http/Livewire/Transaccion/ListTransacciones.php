@@ -67,8 +67,13 @@ class ListTransacciones extends AdminComponent
     public function mount($comercioId)
     {
         $this->comercioId = $comercioId;
-        $comercio = Comercio::find($comercioId);
-        $this->userId = $comercio->userId;
+        if($comercioId > 0){
+            $comercio = Comercio::find($comercioId);
+            $this->userId = $comercio->userId;
+        }else{
+            $this->userId = 1;
+        }
+        
         
     }
 
@@ -355,17 +360,22 @@ class ListTransacciones extends AdminComponent
 
         if($this->metodoPago !== 'all'){
             $transacciones = $transacciones
-                ->where('modopago', $this->metodoPago);
+                ->where('metodo', $this->metodoPago);
         }
 
         
 
         $transacciones = $transacciones
             ->where(function($q){
-                $q->where('referencia', 'like', '%'.$this->searchTerm.'%')
-                ->orWhere('modopago', 'like', '%'.$this->searchTerm.'%');
-            })
-            ->where('id', $this->comercioId)
+                $q->where('reference', 'like', '%'.$this->searchTerm.'%')
+                ->orWhere('metodo', 'like', '%'.$this->searchTerm.'%');
+            });
+        if($this->userId > 1){
+            $transacciones = $transacciones
+                ->where('id', $this->comercioId);       
+        }
+        
+        $transacciones = $transacciones
             ->orderBy($this->sortColumnName, $this->sortDirection)
             ->paginate(15);
         
