@@ -22,6 +22,8 @@ class Pasarela extends Component
 		$this->tokenId = $request->get('ID');
 
         $this->id_suc = $request->get('ID'); 
+
+        dd($request);
 		
 	}
 

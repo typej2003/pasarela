@@ -142,6 +142,47 @@ class ApiController extends Component
             echo json_encode($response);
         
     }
+
+	public function pagosatisfactorio($id){
+        $token = $id;
+
+		$datos = IpgBdv2::checkPayment($token);
+        //$datos = $this->SearchPayment($token);
+    
+        if($datos->success == 'true')
+        {
+          $reference = $datos->reference;
+    
+          //$pedido_id = explode('-', str_replace('Pedido ', '', $reference, ))[0];
+    
+          //$pedido = Pedido::find($pedido_id);
+    
+    
+          $paymentDate = date('Y-m-d H:i:s', strtotime($datos->paymentDate));
+    
+          $transaccion = Transacciones::create([
+           'token' => $token,
+           'paymentId' => auth()->user()->id,
+           'comercioId' => 1,
+           'identificationNumber' => $datos->idNumber,
+           'id_transaccion' => $datos->transactionId,
+           'reference' => $datos->reference,
+           'totalbs' => $datos->amount,
+           'fechaPago' => $paymentDate,
+           'title' => $datos->title,
+           'description' => $datos->description,
+           'status' => 1,
+          ]);
+    
+        //   $pedido->update(
+        //     [
+        //       'id_transaccion' => $datos->transactionId,
+        //       'estado' => 1,
+        //     ]);
+        }
+    
+        return view('procesado', ['id_suc' => $token, 'success' => $datos->success] );
+    }
 }
 
 class IpgBdv2
