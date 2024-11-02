@@ -11,10 +11,22 @@ class ProcesadoController extends Controller
 
 	public $id_suc;
 
+    
+
     public function pagosatisfactorio($id){
         $token = $id;
 
-		$datos = IpgBdv2::checkPayment($token);
+		
+        $demo = "NO";
+
+        if( $demo == "SI" ) 
+        {
+        $PaymentProcess = new IpgBdv2 ("70527030","z0tTsYq3");
+        } else {
+        $PaymentProcess = new IpgBdv2 ("76669805","0Ih2wwzK");
+        }
+
+        $datos = $PaymentProcess->checkPayment($token);
         //$datos = $this->SearchPayment($token);
     
         if($datos->success == 'true')
