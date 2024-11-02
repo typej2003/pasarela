@@ -31,7 +31,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="{{ route('admin.profile.edit') }}" x-ref="profileLink">Perfil</a>
-                    <a class="dropdown-item" href="{{ route('admin.dashboard') }}" x-ref="profileLink">Dashboard</a>
+                    <a class="dropdown-item" href="{{ route('admin.dashboard') }}" x-ref="profileLink">Escritorio</a>
                     <a class="dropdown-item" href="{{ route('admin.profile.edit') }}" x-ref="changePasswordLink">Cambiar Contraseña</a>
                     <a class="dropdown-item" href="{{ route('admin.settings') }}">Configuración</a>
                     <div class="dropdown-divider"></div>

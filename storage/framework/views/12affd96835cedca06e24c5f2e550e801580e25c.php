@@ -157,7 +157,7 @@
             <a href="<?php echo e(route('logout')); ?>" onclick="event.preventDefault(); this.closest('form').submit();" class="nav-link">
               <i class="nav-icon fas fa-sign-out-alt"></i>
               <p>
-                Logout
+                Salir
               </p>
             </a>
           </form>
