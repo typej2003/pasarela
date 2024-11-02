@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Transaccion;
 
 class ProcesadoController extends Controller
 {
@@ -15,8 +16,6 @@ class ProcesadoController extends Controller
 
     public function pagosatisfactorio($id){
         $token = $id;
-
-		
         $demo = "NO";
 
         if( $demo == "SI" ) 
@@ -40,9 +39,9 @@ class ProcesadoController extends Controller
     
           $paymentDate = date('Y-m-d H:i:s', strtotime($datos->paymentDate));
     
-          $transaccion = Transacciones::create([
-           'token' => $token,
-           'paymentId' => auth()->user()->id,
+          $transaccion = Transaccion::create([
+           'userId' => $reference,
+           'paymentId' => $token,
            'comercioId' => 1,
            'identificationNumber' => $datos->idNumber,
            'id_transaccion' => $datos->transactionId,
