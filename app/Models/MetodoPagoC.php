@@ -11,17 +11,19 @@ class MetodoPagoC extends Model
 
     protected $fillable = [
         'comercio_id',
-        'metodopago',
+        'metodo',
+        'banco',
         'tipocuenta',
-        'marcaInternaciona',
         'nrocuenta',
+        'marcaInternaciona',
         'ccv-cvv',
         'fechavencimiento',
         'fecha',
-        'telefono',
+        'cellphonecode',
+        'cellphone',
         'titular',
-        'tipodocumento',
-        'documento',
+        'identificationNac',
+        'identificationNumber',
         'descripcion',
         'pagoonline',
         'email',
@@ -32,5 +34,24 @@ class MetodoPagoC extends Model
     public function comercios()
     {
         return $this->hasMany('Comercio');
+    }
+
+    public function description()
+    {
+        $description = "";
+
+        switch ($this->metodo) {
+            case 'pagomovil':
+                $description = $this->cellphonecode . "/".$this->cellphone."/".$this->identificationNac."-".$this->identificationNumber;
+                break;
+            
+            case 'transferencia':
+                $description = $this->banco . "/". $this->titular . "/".$this->nrocuenta."/".$this->identificationNac."-".$this->identificationNumber;
+                break;
+            case 'pagoonline':
+                    $description = $this->pagoonline . "/". $this->cellphonecode . "-".$this->cellphone."/".$this->identificationNac."-".$this->identificationNumber;
+                    break;
+        }
+        return $description;
     }
 }

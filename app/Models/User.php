@@ -22,6 +22,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
+        'identificationNac',
+        'identificationNumber',
         'name',
         'email',
         'password',
@@ -100,6 +102,24 @@ class User extends Authenticatable
     {
         return $this->hasMany(Comercio::class);
     }    
+
+    public function showUsers()
+    {
+        if($this->role=='admin')
+        {
+            return User::all();
+        }
+        return "0";
+    }
+
+    public function showComercios()
+    {
+        if($this->role=='admin')
+        {
+            return Comercio::all();
+        }
+        return "0";
+    }
 
     public function OperacionNoConfirmada()
     {

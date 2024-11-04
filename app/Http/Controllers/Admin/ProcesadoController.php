@@ -42,6 +42,7 @@ class ProcesadoController extends Controller
           $transaccion = Transaccion::create([
            'paymentId' => $token,
            'comercio_id' => 1,
+           'currency' => "1",
            'identificationNumber' => $datos->idNumber,
            'reference' => $datos->reference,
            'amount' => $datos->amount,

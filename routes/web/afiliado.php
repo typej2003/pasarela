@@ -6,5 +6,5 @@ use App\Http\Livewire\Afiliado\ListMetodosPagosC;
 
 Route::get('/listComercios/{userId}', ListComercios::class)->name('listComercios')->middleware('auth');
 
-Route::get('/listMetodosPagosC/{comercioId}', ListMetodosPagosC::class)->name('listMetodosPagosC')->middleware('auth');
+Route::get('/listMetodosPagosC/{comercio_id}', ListMetodosPagosC::class)->name('listMetodosPagosC')->middleware('auth');
 

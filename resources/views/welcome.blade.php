@@ -96,25 +96,7 @@
             
                     <form action="{{ route('login') }}" method="POST">
                       @csrf
-                      <div class="form-group">
-                        <div class="row mx-auto">
-                            <div class="col-xs-6 col-md-4 col-sm-4 col-4">
-                                <label for="tipodocumento">Tipo </label>
-                                <select class="form-control inputForm inputType" name="" id="identificationNac" placeholder="Tipo">
-                                    <option value="J">J-</option>
-                                    <option value="E">E-</option>
-                                    <option value="G">G-</option>
-                                    <option value="P">P-</option>
-                                    <option value="V" selected>V-</option>
-                                </select>
-                            </div>
-                            <div class="col-xs-6 col-md-8 col=sm-8 col-8">
-                                <label for="documento">Documento</label>
-                                <input type="text" id="identificationNumber" class="form-control inputForm" placeholder="Documento">
-                            </div>
-                        </div>
-                        
-                    </div>
+                      
             
                         <div class="form-group">
                             <div class="row mx-auto" >

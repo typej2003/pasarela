@@ -19,7 +19,7 @@ class SearchAfiliado extends Controller
 
         $usuario = User::where('name', $peticion[1])->where('role', 'afiliado')->first();
 
-        $comercio = Comercio::where('name', $peticion[2])->first();
+        $comercio = Comercio::where('keyword', $peticion[2])->first();
         
         if($comercio){
             $existe = true;

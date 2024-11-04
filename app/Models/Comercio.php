@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+use Illuminate\Support\Facades\Storage;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -19,8 +20,23 @@ class Comercio extends Model
      */
     protected $fillable = [
         'name',
+        'keyword',
+        'area_id',
         'user_id',
+        'avatar',
     ];
+
+    protected $appends = [
+        'avatar_url',
+    ];
+
+    public function getAvatarUrlAttribute()
+    {
+        if ($this->avatar && Storage::disk('avatarscomercios')->exists($this->avatar)) {   
+            return Storage::disk('avatarscomercios')->url($this->avatar);
+        }
+        return asset('noimage.png');
+    }
 
     public function propietario()
     {
@@ -32,6 +48,7 @@ class Comercio extends Model
     public function getPropietario()
     {
         $propietario = User::find($this->user_id);
+        
         return $propietario;        
     }
 
@@ -41,6 +58,16 @@ class Comercio extends Model
             ->where('comercio_id', $this->id)
             ->where('status', 'norevisado')
             ->count();
+    }
+
+    public function area ()
+    {
+        return $this->hasOne(Area::class);
+    }
+
+    public function categories ()
+    {
+        return $this->hasMany(Category::class);
     }
 
     

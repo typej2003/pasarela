@@ -1,4 +1,4 @@
-<aside class="main-sidebar sidebar-dark-primary elevation-4">
+<aside class="main-sidebar sidebar-bg-primary elevation-4">
   <!-- Brand Logo -->
   <a href="/" class="brand-link">
     <img class="main-sidebar-img" src="/img/logo_01.png" alt="">
@@ -57,6 +57,70 @@
             </li>
           </ul>
         </li>
+        <!-- Admin -->
+        @if(auth()->user()->role == 'admin')
+          
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-table"></i>
+              <p>
+                Comercios
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('listComercios', 0) }}" class="nav-link {{ request()->is('listComercios') ? 'active' : '' }}">
+                  <i class="nav-icon fas fa-comments"></i>
+                  <p>
+                    Todos Comercios
+                  </p>
+                </a>
+              </li>
+              
+              @foreach(auth()->user()->showComercios() as $comercio)  
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-table"></i>
+                    <p>
+                      {{$comercio->name}}
+                      <i class="fas fa-angle-left right"></i>
+                    </p>
+                  </a>
+                  <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                      <a href="{{ route('listComercios', 0) }}" class="nav-link {{ request()->is('listComercios') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-cog"></i>
+                        <p>
+                          Configurar
+                        </p>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="{{ route('listMetodosPagosC', $comercio->id) }}" class="nav-link {{ request()->is('listMetodosPagosC') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-comments"></i>
+                        <p>
+                          Métodos de Pagos
+                        </p>
+                      </a>
+                    </li>
+
+                    <li class="nav-item">
+                      <a href="{{ route('listTransacciones', $comercio->id) }}" class="nav-link {{ request()->is('listTransacciones') ? 'active' : '' }}">
+                      <i class="fa fa-solid fa-file-invoice-dollar"></i>
+                        <p>
+                          Transacciones
+                        </p>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+              @endforeach
+
+              
+            </ul>
+          </li>
+        @endif
 
         <li class="nav-item">
           <a href="/pasarela" class="nav-link {{ request()->is('pasarela') ? 'active' : '' }}">
@@ -76,22 +140,13 @@
           </a>
         </li>
 
-        <li class="nav-item">
-          <a href="{{ route('listComercios', 0) }}" class="nav-link {{ request()->is('listComercios') ? 'active' : '' }}">
-            <i class="nav-icon fas fa-comments"></i>
-            <p>
-              Comercios
-            </p>
-          </a>
-        </li>
-
+        
         <!-- CONFIGURACION -->
         <li class="nav-item">
           <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-table"></i>
+            <i class="nav-icon fas fa-cog"></i>
             <p>
               Configuración
-              <i class="fas fa-angle-left right"></i>
             </p>
           </a>
           <ul class="nav nav-treeview">
@@ -106,32 +161,14 @@
           </ul>
         </li>
 
-        <li class="nav-item">
-          <a href="{{ route('listMetodosPagosC', 0) }}" class="nav-link {{ request()->is('listMetodosPagosC') ? 'active' : '' }}">
-            <i class="nav-icon fas fa-comments"></i>
-            <p>
-              Comercio / Métodos de Pagos
-            </p>
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a href="{{ route('listTransacciones', 1) }}" class="nav-link {{ request()->is('listTransacciones') ? 'active' : '' }}">
-          <i class="fa fa-solid fa-file-invoice-dollar"></i>
-            <p>
-              Transacciones
-            </p>
-          </a>
-        </li>
-
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a href="{{ route('admin.messages') }}" class="nav-link {{ request()->is('admin/messages') ? 'active' : '' }}">
             <i class="nav-icon fas fa-comments"></i>
             <p>
               Messages
             </p>
           </a>
-        </li>
+        </li> -->
 
         <li class="nav-item">
           <a href="{{ route('admin.settings') }}" class="nav-link {{ request()->is('admin/settings') ? 'active' : '' }}">

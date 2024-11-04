@@ -26,7 +26,7 @@ class UserSeeder extends Seeder
         ]);
 
         DB::table('datos_basicos')->insert([
-            'user_Id' => 1,
+            'user_id' => 1,
             'telefono' => '04165800403',
             'direccion' => 'Cumana-Villa Felicidad I',
             'created_at' => '2022-05-16 12:20:36',

@@ -15,7 +15,7 @@ class DatosBasicos extends Model
      * @var array
      */
     protected $fillable = [
-        'user_Id',
+        'user_id',
         'direccion',
         'telefono',
     ];
