@@ -112,7 +112,7 @@
           select: function (event, ui) {            
              $('#identificationNumber0').val(ui.item.identificationNumber);
              clienteId = ui.item.identi
-             cellphone =  ui.item.telefono
+             cellphone =  ui.item.cellphone
              email =  ui.item.email
              identificationNac = ui.item.identificationNac
              identificationNumber = ui.item.identificationNumber

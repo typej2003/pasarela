@@ -13,7 +13,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
         <script src="/js/variables.js"></script>
-        <script src="/js/selectMetodoPago.js"></script>
+        <script src="/js/selectMetodoPagoPasarela.js"></script>
         
     </head> 
     <style>
@@ -44,9 +44,9 @@
     </div>
 </section>
 <div class="container-fluid">
-    <div class="d-flex justify-content-between mb-2">
+    <div class="d-flex justify-content-between mb-2 my-3">
         <button wire:click.prevent="addNew" class="btn btn-primary"><i class="fa fa-plus-circle mr-1"></i> Nuevo Usuario</button>
-        <x-search-input wire:model="searchTerm" />
+        <div></div>
     </div>
 </div>
 <div class="container-fluid d-flex flex-row">
@@ -63,7 +63,8 @@
                             </ul>
                         </div>
                     @endif
-                    <label for="cedula">Cédula</label>
+                    <script> var comercio_id = 0; comercio_id = "{{ $comercio_id }}"; </script>
+                    <label for="cedula">Cédula </label>
                     <input id="identificationNumber0" type="text" autofocus class="cedula form-control inputForm @error('identificationNumber0') is-invalid @enderror" aria-describedby="cedulaHelp" placeholder="Cédula" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" value="{{ old('identificationNumber0') }}">
                     @error('identificationNumber0')
                     <div class="invalid-feedback">
@@ -116,9 +117,8 @@
                         <label for="name">Rol</label>
                         <select name="" wire:model.defer="state.role" class="form-control @error('role') is-invalid @enderror" id="">
                             <option value="0">SELECCIONE..</option>
-                            <option value="admin">ADMINISTRADOR</option>
                             <option value="afiliado">AFILIADO</option>
-                            <option value="user">USER</option>
+                            <option value="cliente">CLIENTE</option>
                         </select>
                         @error('role')
                         <div class="invalid-feedback">
@@ -132,11 +132,12 @@
                             <div class="col-xs-6 col-md-4 col-sm-4 col-4">
                                 <label for="identificationNac">Tipo </label>
                                 <select wire:model.defer="state.identificationNac" class="form-control inputForm inputType @error('identificationNac') is-invalid @enderror" name="identificationNac" id="identificationNac" placeholder="Tipo">
+                                    <option value="0">SELECCIONE..</option>
+                                    <option value="V">V-</option>
                                     <option value="J">J-</option>
                                     <option value="E">E-</option>
                                     <option value="G">G-</option>
-                                    <option value="P">P-</option>
-                                    <option value="V" selected>V-</option>
+                                    <option value="P">P-</option>                                    
                                 </select>
                                 @error('identificationNac')
                                 <div class="invalid-feedback">
@@ -146,7 +147,7 @@
                             </div>
                             <div class="col-xs-6 col-md-8 col=sm-8 col-8">
                                 <label for="identificationNumber">Documento</label>
-                                <input wire:model.defer="state.identificationNumber" class="form-control inputForm @error('identificationNumber') is-invalid @enderror" type="text" id="identificationNumber" name="identificationNumber"  placeholder="Documento">
+                                <input wire:model.defer="state.identificationNumber" class="form-control @error('identificationNumber') is-invalid @enderror" type="text" id="identificationNumber" name="identificationNumber"  placeholder="Documento">
                                 @error('identificationNumber')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -158,7 +159,7 @@
 
                     <div class="form-group">
                         <label for="name">Usuario</label>
-                        <input type="text" wire:model.defer="state.name" class="form-control @error('name') is-invalid @enderror" id="name" aria-describedby="nameHelp" placeholder="Enter full name">
+                        <input type="text" wire:model.defer="state.name" class="form-control @error('name') is-invalid @enderror" id="name" aria-describedby="nameHelp" placeholder="Nombre de usuario">
                         @error('name')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -168,7 +169,7 @@
 
                     <div class="form-group">
                         <label for="email">Correo Electrónico</label>
-                        <input type="text" wire:model.defer="state.email" class="form-control @error('email') is-invalid @enderror" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+                        <input type="text" wire:model.defer="state.email" class="form-control @error('email') is-invalid @enderror" id="email" aria-describedby="emailHelp" placeholder="Introduce el email">
                         @error('email')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -189,6 +190,44 @@
                     <div class="form-group">
                         <label for="passwordConfirmation">Confirme la Contraseña</label>
                         <input type="password" wire:model.defer="state.password_confirmation" class="form-control" id="passwordConfirmation" placeholder="Confirme la Contraseña">
+                    </div>
+
+                    <div class="row mx-auto">
+                        <div class="col-xs-6 col-md-4 col-sm-4 col-4">
+                        <label for="cellphonecode">Operadora</label>
+                            <select wire:model.defer="state.cellphonecode" class="form-control @error('cellphonecode') is-invalid @enderror inputForm inputType" name="" id="cellphonecode">
+                                <option value="0">Seleccione</option>
+                                <option value="0412">0412</option>
+                                <option value="0414">0414</option>
+                                <option value="0424">0424</option>
+                                <option value="0416">0416</option>
+                                <option value="0426">0426</option>
+                            </select>
+                            @error('cellphonecode')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+                        <div class="col-xs-6 col-md-8 col-sm-8 col-8">
+                        <label for="cellphone">Operadora</label>
+                            <input type="text" wire:model.defer="state.cellphone" class="form-control @error('cellphone') is-invalid @enderror " name="" id="cellphone">
+                            @error('cellphone')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="address">Dirección</label>
+                        <input type="address" wire:model.defer="state.address" class="form-control @error('address') is-invalid @enderror" id="address" placeholder="Dirección">
+                        @error('address')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                        @enderror
                     </div>
 
                     <div class="form-group">
@@ -238,9 +277,16 @@
     let divPrincipal = document.getElementById('divPrincipal')
     divPrincipal.appendChild(selectMetodoPago(0))  
     
+    comercio_id = @this.comercio_id
     
     window.addEventListener('show-formUser', function (event) {
         $('#formUser').modal('show');
+    });
+    window.addEventListener('hide-formUser', function (event) {
+        $('#formUser').modal('hide');
+        document.querySelector('#identificationNumber0').value = event.detail.identificationNumber
+        document.querySelector('#clienteName').value = event.detail.name
+        
     });
 </script>
 
@@ -275,16 +321,24 @@
                 }else{
                     verifica.classList.add('d-none')   
                     document.querySelector('#clienteName').value = ""
+                    email =  ""
+                    identificationNac = "0"
+                    identificationNumber = ""
+                    cellphone = ""
+                    cellphonecode = "0"
+                    cliente_id = 0;
                 }
               }
             });
           },
           select: function (event, ui) {            
              $('#identificationNumber0').val(ui.item.identificationNumber);
-             cellphone =  ui.item.telefono
+             cliente_id = ui.item.identi
              email =  ui.item.email
              identificationNac = ui.item.identificationNac
              identificationNumber = ui.item.identificationNumber
+             cellphone = ui.item.cellphone
+             cellphonecode = ui.item.cellphonecode
 
              $('#temp').val(ui.item.identificationNumber);
 

@@ -95,7 +95,10 @@ class User extends Authenticatable
 
     public function datosbasicos()
     {
-        return $this->hasOne(DatosBasicos::class);
+        return $this->hasOne(DatosBasicos::class)->withDefault([
+            'cellphone' => '',
+            'address' => '',
+        ]);
     }    
 
     public function comercios()

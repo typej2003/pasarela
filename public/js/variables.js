@@ -50,13 +50,13 @@ var bancosAsociadosPM =  [
     {
         'banco': 'Venezuela',
         'codigo': '0102', 
-        'telefono': '04165800403',
+        'cellphone': '04165800403',
         'cedula': '13053081',
     },
     {
         'banco': 'Banesco',
         'codigo': '0134', 
-        'telefono': '0414999888',
+        'cellphone': '0414999888',
         'cedula': '13999888',
     },
 ]
@@ -67,7 +67,7 @@ var bancosAsociadosT =  [
         'codigo': '0102', 
         'img': 'img_BDV.png',
         'tarjetadebito': '0102', 
-        'telefono': '04165800403',
+        'cellphone': '04165800403',
         'cedula': '13053081',
         'nrocuenta': '01029999988888000000',
     }
@@ -81,18 +81,18 @@ var bancosAsociadosZelle =  [
 ]
 
 var user_id = 1;
-var comercio_id = 1;
 var cliente_id = 0;
 var currency = 1; // Bolivar
 var amount = 1;
 var reference = '12345678';
-var title = 'Estoesuntitulo';
-var description = 'Estoesunadescripcion';
-var email = 'eefdsfse';
+var title = 'Titulo';
+var description = 'Descripcion';
+var email = '';
+var cellphonecode = '0';
 var cellphone = '';
 var rifLetter = 'J';
 var rifNumber = ''; // J G
-var identificationNac = 'V' // V E P
+var identificationNac = '0' // V E P
 var identificationNumber = ''
 
 /*

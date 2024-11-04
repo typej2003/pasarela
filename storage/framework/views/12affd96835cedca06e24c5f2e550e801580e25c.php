@@ -62,7 +62,7 @@
           
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-table"></i>
+              <i class="fas fa-solid fa-building"></i>  
               <p>
                 Comercios
                 <i class="fas fa-angle-left right"></i>
@@ -71,7 +71,7 @@
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="<?php echo e(route('listComercios', 0)); ?>" class="nav-link <?php echo e(request()->is('listComercios') ? 'active' : ''); ?>">
-                  <i class="nav-icon fas fa-comments"></i>
+                  <i class="fas fa-solid fa-building"></i> 
                   <p>
                     Todos Comercios
                   </p>
@@ -89,14 +89,24 @@
                     </p>
                   </a>
                   <ul class="nav nav-treeview">
+
                     <li class="nav-item">
-                      <a href="<?php echo e(route('listComercios', 0)); ?>" class="nav-link <?php echo e(request()->is('listComercios') ? 'active' : ''); ?>">
+                      <a href="<?php echo e(route('showPasarela',  $comercio->id)); ?>" class="nav-link <?php echo e(request()->is('showPasarela') ? 'active' : ''); ?>">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>
+                          Pasarela
+                        </p>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="<?php echo e(route('listComercios',  $comercio->id)); ?>" class="nav-link <?php echo e(request()->is('listComercios') ? 'active' : ''); ?>">
                         <i class="nav-icon fas fa-cog"></i>
                         <p>
                           Configurar
                         </p>
                       </a>
                     </li>
+                    
                     <li class="nav-item">
                       <a href="<?php echo e(route('listMetodosPagosC', $comercio->id)); ?>" class="nav-link <?php echo e(request()->is('listMetodosPagosC') ? 'active' : ''); ?>">
                         <i class="nav-icon fas fa-comments"></i>
@@ -123,15 +133,7 @@
           </li>
         <?php endif; ?>
 
-        <li class="nav-item">
-          <a href="/pasarela" class="nav-link <?php echo e(request()->is('pasarela') ? 'active' : ''); ?>">
-            <i class="far fa-circle nav-icon"></i>
-            <p>
-              Pasarela
-            </p>
-          </a>
-        </li>
-
+        
         <li class="nav-item">
           <a href="<?php echo e(route('admin.users')); ?>" class="nav-link <?php echo e(request()->is('admin/users') ? 'active' : ''); ?>">
             <i class="nav-icon fas fa-users"></i>

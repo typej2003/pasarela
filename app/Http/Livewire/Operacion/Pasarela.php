@@ -9,6 +9,9 @@ use Illuminate\Http\Request;
 
 use App\Models\User;
 use App\Models\DatosBasicos;
+use App\Models\Comercio;
+use App\Models\Banco;
+use App\Models\Transaccion;
 
 class Pasarela extends Component
 {
@@ -22,11 +25,11 @@ class Pasarela extends Component
 
     public $photo;
 
-    public function mount(Request $request)
-	{
-		$this->tokenId = $request->get('ID');
+    public $comercio_id;
 
-        $this->id_suc = $request->get('ID'); 
+    public function mount($comercio_id = 1)
+	{
+		$this->comercio_id = $comercio_id;
 		
 	}
 
@@ -36,6 +39,7 @@ class Pasarela extends Component
 		$this->reset();
         $this->tokenId = $tokenId;
 
+        $this->state['identificationNac'] = "V";
 		$this->showEditModal = false;
 
 		$this->dispatchBrowserEvent('show-formUser');
@@ -47,33 +51,46 @@ class Pasarela extends Component
             'role.required'  => 'El rol es requerido.',
             'name.required'  => 'El nombre es requerido.',
             'email.required'  => 'El email es requerido.',
-            'password.required'  => 'El Password es requerido.',
-            'password.confirmed'  => 'El Password no esta confirmado.',
+            // 'password.required'  => 'El Password es requerido.',
+            // 'password.confirmed'  => 'El Password no esta confirmado.',
             'unique'    => 'Ya existe un email registrado',
         ];
 
 		$validatedData = Validator::make($this->state, [
 			'name' => 'required',
 			'email' => 'required|email|unique:users',
-			'password' => 'required|confirmed',
+			'password' => 'nullable',
 			'role' => 'required',
-            
+            'email' => 'nullable',
+            'identificationNac' => 'required',
+            'identificationNumber' => 'required',
+            'cellphonecode' => 'nullable',
+            'cellphone' => 'nullable',
+            'address' => 'nullable',
         ],
         $messages,)->validate();
 
-		$validatedData['password'] = bcrypt($validatedData['password']);
+        if(isset($validatedData['password'])){
+            $validatedData['password'] = bcrypt($validatedData['password']);
+        }else{
+            $validatedData['password'] = bcrypt($validatedData['identificationNumber']);
+        }
 
 		if ($this->photo) {
 			$validatedData['avatar'] = $this->photo->store('/', 'avatars');
 		}
 
-		User::create($validatedData);
+		$user = User::create($validatedData);
+
+        DatosBasicos::create(['user_id' => $user->id, ]);
 
 		// session()->flash('message', 'User added successfully!');
 
-		$this->dispatchBrowserEvent('hide-form', ['message' => 'Usuario agregado satisfactoriamente!']);
+		$this->dispatchBrowserEvent('hide-formUser', [
+            'identificationNumber' => $user->identificationNumber,
+            'name' => $user->name,
+        ]);
 	}
-
 
     public function procesado(Request $request)
 	{
@@ -85,83 +102,68 @@ class Pasarela extends Component
 		
 	}
 
-    public function autocompleteClientePasarela(Request $request)
-    {
-        if($request->get('campo')=='cedula'){
-            $data = Paciente::select("cedula as value", "id as identi", "name as nombre", "cedula as cedula", "sexo as sexo", "fechanacimiento as fechanacimiento");    
-        }
-        else
-        {
-            $data = Paciente::select("name as value", "id as identi", "name as nombre", "cedula as cedula", "sexo as sexo", "fechanacimiento as fechanacimiento");
+    public function enviarDataPasarela(Request $request){
+
+        
+        $operacion = $request->get('datos');
+
+        $comercio = Comercio::find($operacion['comercio_id']);
+
+        $operacion['user_id'] = $comercio->user_id;
+
+        $operacion['banco'] = '';
+        if($operacion['codigo']){
+            $banco = Banco::where('codigo', $operacion['codigo'])->first();
+            $operacion['banco'] = $banco->name;
         }
         
-        $data = $data
-                ->where('laboratorio_id',  $request->get('laboratorio_id'))
-                ->where(function($query)  use ($request){
-                    $query->where('cedula', 'LIKE', '%'. $request->get('search'). '%')
-                    ->orWhere('name', 'LIKE', '%'. $request->get('search'). '%');
-                })
-                ->get();
-    
+        $transaccion = Transaccion::create($operacion);
+
+        if($transaccion){
+            $data = ['state'=> 'ok'];
+        }
+        else{
+            $data = ['state'=> 'fallido'];
+        }
+        
         return response()->json($data);
+
     }
 
-    public function enviarData(Request $request){
-        $data = ['valor' => "Operacion exitosa!", ];
-        return response()->json($data);
-    }
-
-    //public function createClient(array $input)
-    // public function createClient()
-    // {
-    //     return response()->json(['error'=>'error al crear']);
-
-    //     $validatedData = Validator::make($request->all(), [
-    //         'identificationNac' => 'required',
-    //         'identificationNumber' => 'required',
-	// 		'name' => 'required',
-	// 		'email' => 'required|email|unique:users',
-	// 		'password' => 'required|confirmed',
-	// 		'role' => 'required',
-	// 	])->validate();
-
-	// 	$validatedData['password'] = bcrypt($validatedData['password']);
-        
-    //     $data = User::create($validatedData);
-
-    //     if($data){
-    //         $datosbasicos['user_id'] = $data->id;
-
-    //         DatosBasicos::create($datosbasicos);
-            
-    //         return response()->json($data);
-
-    //     }else{
-    //         return response()->json(['error'=>'error al crear']);
-    //     }
-        
-    // }
-
+   
     public function createClient(Request $request){
 
         // dd($request);
         $validatedData = Validator::make($request->all(), [
-            // 'identificationNac' => 'required',
-            //'identificationNumber' => 'required',
+            'identificationNac' => 'required|not_in:0',
+            'identificationNumber' => 'required',
 			'name' => 'required',
 			'email' => 'required|email|unique:users',
-			//'password' => 'required|confirmed',
-            //'password_confirmation' => 'required',
+			'password' => 'nullable',
+            'password_confirmation' => 'nullable',
+            'cellphonecode' => 'nullable',
+            'cellphone' => 'nullable',
+            'address' => 'nullable',
         ])->validate();
+
+        if($validatedData['password'] !== null)
+        {
+            $validatedData['password'] = bcrypt($validatedData['password']);
+        }else{
+            $validatedData['password'] = bcrypt($validatedData['identificationNumber']);
+        }
         
-        dd($validatedData);
-        
-		$validatedData['password'] = bcrypt($validatedData['password']);
+		
         $validatedData['role'] = 'cliente';
 
 		$user = User::create($validatedData);
 
-        DatosBasicos::create(['user_id' => $user->id]);
+        $datosbasicos['user_id'] = $user->id;
+        $datosbasicos['cellphonecode'] = $validatedData['cellphonecode'];
+        $datosbasicos['cellphone'] = $validatedData['cellphone'];
+        $datosbasicos['address'] = $validatedData['address'];
+
+        DatosBasicos::create($datosbasicos);
 
 		// session()->flash('message', 'User added successfully!');
 

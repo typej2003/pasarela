@@ -15,21 +15,21 @@ class CreateTransaccionsTable extends Migration
     {
         Schema::create('transaccions', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id')->unique();
+            $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')
                 ->on('users')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
-            $table->unsignedBigInteger('comercio_id')->unique();
+            $table->unsignedBigInteger('comercio_id');
             $table->foreign('comercio_id')->references('id')
                 ->on('comercios')
                 ->onDelete('cascade')
                 ->onUpdate('cascade'); 
-            $table->unsignedBigInteger('cliente_id')->unique();
-            $table->foreign('cliente_id')->references('id')
-                ->on('clients')
-                ->onDelete('cascade')
-                ->onUpdate('cascade');            
+            $table->unsignedBigInteger('cliente_id');
+            // $table->foreign('cliente_id')->references('id')
+            //     ->on('clients')
+            //     ->onDelete('cascade')
+            //     ->onUpdate('cascade');            
             $table->string('paymentId')->nullable();
             $table->string('codigoFactura')->nullable();
             $table->string('metodo')->nullable();

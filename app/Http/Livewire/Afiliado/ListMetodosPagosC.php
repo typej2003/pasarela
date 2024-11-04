@@ -55,7 +55,7 @@ class ListMetodosPagosC extends AdminComponent
 		'identificationNumber.required' => 'Debe ingresar un número de documento!',
 	];
 
-    public function mount($comercio_id = 0)
+    public function mount($comercio_id = 1)
     {
         $this->comercio_id = $comercio_id;
     }

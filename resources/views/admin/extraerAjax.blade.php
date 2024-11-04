@@ -1102,8 +1102,8 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="telefonoP">Teléfono</label>
-                            <input type="tel" wire:model.defer="state.telefono" class="form-control" id="telefono" aria-describedby="telefonoHelp" onKeypress="if (event.keyCode < 45 || event.keyCode > 57 || event.keyCode == 189) event.returnValue = false;">
+                            <label for="cellphoneP">Teléfono</label>
+                            <input type="tel" wire:model.defer="state.cellphone" class="form-control" id="cellphone" aria-describedby="cellphoneHelp" onKeypress="if (event.keyCode < 45 || event.keyCode > 57 || event.keyCode == 189) event.returnValue = false;">
                             
                         </div>
 
@@ -1188,9 +1188,9 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="telefonoP">Teléfono</label>
-                            <input type="tel" wire:model.defer="stateMedico.telefono" class="form-control @error('telefonoP') is-invalid @enderror" id="telefonoP" aria-describedby="telefonoPHelp" onKeypress="if (event.keyCode < 45 || event.keyCode > 57 || event.keyCode == 189) event.returnValue = false;">
-                            @error('telefonoP')
+                            <label for="cellphoneP">Teléfono</label>
+                            <input type="tel" wire:model.defer="stateMedico.cellphone" class="form-control @error('cellphoneP') is-invalid @enderror" id="cellphoneP" aria-describedby="cellphonePHelp" onKeypress="if (event.keyCode < 45 || event.keyCode > 57 || event.keyCode == 189) event.returnValue = false;">
+                            @error('cellphoneP')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>

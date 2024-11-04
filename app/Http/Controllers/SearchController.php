@@ -20,11 +20,11 @@ class SearchController extends Controller
             });
         
         if($request->get('campo')=='cedula'){
-            $data = $data->select("users.identificationNumber as value", "users.id as identi", "users.identificationNac as identificationNac","users.name as nombre", "users.identificationNumber as identificationNumber", "datos_basicos.telefono as telefono", "users.email as email");    
+            $data = $data->select("users.identificationNumber as value", "users.id as identi", "users.identificationNac as identificationNac","users.name as nombre", "users.identificationNumber as identificationNumber", "datos_basicos.cellphonecode as cellphonecode", "datos_basicos.cellphone as cellphone", "users.email as email");    
         }
         else
         {
-            $data = $data->select("users.identificationNumber as value", "users.id as identi", "users.identificationNac as identificationNac","users.name as nombre", "users.identificationNumber as identificationNumber", "datos_basicos.telefono as telefono", "users.email as email");
+            $data = $data->select("users.identificationNumber as value", "users.id as identi", "users.identificationNac as identificationNac","users.name as nombre", "users.identificationNumber as identificationNumber", "datos_basicos.cellphonecode as cellphonecode",  "datos_basicos.cellphone as cellphone", "users.email as email");
         }
         $data = $data->get();
     

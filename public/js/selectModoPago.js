@@ -84,7 +84,7 @@ function selectModo(e) {
         'modopago': '',
         'referencia': '',
         'cedula': '',
-        'telefono': '',
+        'cellphone': '',
         'banco': 'VZLA',
         'codigo': '',
         'fechaPago': '',
@@ -205,7 +205,7 @@ function crearPantallaPagoMovil(pantalla)
             spanGroup.classList.remove('d-none')            
             spanDP.innerHTML = `<div class='negrita'>RIF/CEDULA</div><div>${pagomovil.cedula}</div>
                             <div class='negrita'>BANCO</div><div>${pagomovil.banco}</div>
-                            <div class='negrita'>TELÉFONO</div><div>${pagomovil.telefono}</div>
+                            <div class='negrita'>TELÉFONO</div><div>${pagomovil.cellphone}</div>
             `
             
 

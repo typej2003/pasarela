@@ -13,7 +13,7 @@
         'modopago': '',
         'referencia': '',
         'cedula': '',
-        'telefono': '',
+        'cellphone': '',
         'banco': '',
         'codigo': '',
         'fechaPago': '',

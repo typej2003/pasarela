@@ -1,5 +1,6 @@
 function selectMetodoPago(index1 = 0)
 {
+    
     let index = index1
 
     let bloque = document.createElement('div')
@@ -1072,7 +1073,7 @@ function procesarTarjeta(){
 function enviarDatos(datos){
     var token = '{{csrf_token()}}';// ó $("#token").val() si lo tienes en una etiqueta html.
     var datos = datos 
-    var path = "/enviarData";
+    var path = "/enviarDataPasarela";
     $.ajax({
         url: path,
         //type: "POST",
@@ -1083,8 +1084,11 @@ function enviarDatos(datos){
             datos: datos
             },
         success: function (data) {
-
-            console.log(data)
+            if(data.state == 'ok'){
+                console.log('operación exitosa!')
+            }else{
+                console.log('operación fallida!')
+            }            
 
         }
     });

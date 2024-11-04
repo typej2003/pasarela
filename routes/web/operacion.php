@@ -9,9 +9,9 @@ use App\Http\Livewire\Recursos\ApiController;
 
 Route::get('/MakePayment/{comercioId}', MakePayment::class)->name('MakePayment')->middleware('auth');
 
-Route::get('/pasarela', Pasarela::class)->name('pasarela')->middleware('auth');
+Route::get('/showPasarela/{comercio_id}', Pasarela::class)->name('showPasarela')->middleware('auth');
 
-Route::get('/enviardataPasarela', [Pasarela::class, 'enviarData'])->name('enviardataPasarela');
+Route::get('/enviarDataPasarela', [Pasarela::class, 'enviarDataPasarela'])->name('enviardataPasarela');
 
 Route::get('/pagosatisfactorio/{ID}', [ProcesadoController::class, 'pagosatisfactorio'])->name('pagosatisfactorio');
 

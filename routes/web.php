@@ -6,6 +6,8 @@ use App\Http\Controllers\SearchController;
 
 use App\Http\Controllers\Admin\SearchAfiliado;
 
+use App\Http\Controllers\Livewire\Operacion\Pasarela;
+
 use App\Http\Livewire\Admin\Settings\ListMetodosPagos;
 
 use App\Http\Livewire\Recursos\ApiController;
@@ -42,3 +44,4 @@ Route::controller(SearchController::class)->group(function(){
 });
 
 Route::get('/enviarData', [SearchAfiliado::class, 'enviarData'])->name('enviardata');
+

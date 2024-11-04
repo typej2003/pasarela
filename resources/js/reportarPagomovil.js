@@ -3,7 +3,7 @@ import { detalles } from './detalles.js'
 
 var datosCliente, transaccion;
 
-var campos = ['referencia', 'telefono', 'banco', 'codigo', 'cedula', 'fecha', 'monto']
+var campos = ['referencia', 'cellphone', 'banco', 'codigo', 'cedula', 'fecha', 'monto']
 
 export function reportarPagomovil(datosCliente, transaccion1) {
     transaccion = transaccion1
@@ -107,7 +107,7 @@ export function reportarPagomovil(datosCliente, transaccion1) {
       if(validarcion()){
         transaccion.referencia = document.getElementById('referencia').value
         if(transaccion.modopago !== 'transferencia')
-          transaccion.telefono = document.getElementById('telefono').value
+          transaccion.cellphone = document.getElementById('cellphone').value
         transaccion.cedula = document.getElementById('cedula').value
         transaccion.fecha = document.getElementById('fecha').value
         transaccion.monto = document.getElementById('monto').value
@@ -137,7 +137,7 @@ const validarcion = () => {
   if (!validar('#referencia'))
     return false
   if(transaccion.modopago !== 'transferencia')
-    if (!validar('#telefono'))
+    if (!validar('#cellphone'))
         return false
     
       

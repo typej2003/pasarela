@@ -21,8 +21,9 @@ class CreateDatosBasicosTable extends Migration
                 ->on('users')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
-            $table->string('telefono')->default();
-            $table->string('direccion')->default();
+            $table->string('cellphonecode')->default();
+            $table->string('cellphone')->default();
+            $table->string('address')->default();
             $table->timestamps();
         });
     }

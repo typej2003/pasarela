@@ -13,7 +13,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
         <script src="/js/variables.js"></script>
-        <script src="/js/selectMetodoPago.js"></script>
+        <script src="/js/selectMetodoPagoPasarela.js"></script>
         
     </head> 
     <style>
@@ -44,20 +44,9 @@
     </div>
 </section>
 <div class="container-fluid">
-    <div class="d-flex justify-content-between mb-2">
+    <div class="d-flex justify-content-between mb-2 my-3">
         <button wire:click.prevent="addNew" class="btn btn-primary"><i class="fa fa-plus-circle mr-1"></i> Nuevo Usuario</button>
-        <?php if (isset($component)) { $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4 = $component; } ?>
-<?php $component = $__env->getContainer()->make(Illuminate\View\AnonymousComponent::class, ['view' => 'components.search-input','data' => ['wire:model' => 'searchTerm']]); ?>
-<?php $component->withName('search-input'); ?>
-<?php if ($component->shouldRender()): ?>
-<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php $component->withAttributes(['wire:model' => 'searchTerm']); ?>
-<?php echo $__env->renderComponent(); ?>
-<?php endif; ?>
-<?php if (isset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4)): ?>
-<?php $component = $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4; ?>
-<?php unset($__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4); ?>
-<?php endif; ?>
+        <div></div>
     </div>
 </div>
 <div class="container-fluid d-flex flex-row">
@@ -74,7 +63,8 @@
                             </ul>
                         </div>
                     <?php endif; ?>
-                    <label for="cedula">Cédula</label>
+                    <script> var comercio_id = 0; comercio_id = "<?php echo e($comercio_id); ?>"; </script>
+                    <label for="cedula">Cédula </label>
                     <input id="identificationNumber0" type="text" autofocus class="cedula form-control inputForm <?php $__errorArgs = ['identificationNumber0'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -149,9 +139,8 @@ if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>" id="">
                             <option value="0">SELECCIONE..</option>
-                            <option value="admin">ADMINISTRADOR</option>
                             <option value="afiliado">AFILIADO</option>
-                            <option value="user">USER</option>
+                            <option value="cliente">CLIENTE</option>
                         </select>
                         <?php $__errorArgs = ['role'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
@@ -180,11 +169,12 @@ $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>" name="identificationNac" id="identificationNac" placeholder="Tipo">
+                                    <option value="0">SELECCIONE..</option>
+                                    <option value="V">V-</option>
                                     <option value="J">J-</option>
                                     <option value="E">E-</option>
                                     <option value="G">G-</option>
-                                    <option value="P">P-</option>
-                                    <option value="V" selected>V-</option>
+                                    <option value="P">P-</option>                                    
                                 </select>
                                 <?php $__errorArgs = ['identificationNac'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
@@ -202,7 +192,7 @@ unset($__errorArgs, $__bag); ?>
                             </div>
                             <div class="col-xs-6 col-md-8 col=sm-8 col-8">
                                 <label for="identificationNumber">Documento</label>
-                                <input wire:model.defer="state.identificationNumber" class="form-control inputForm <?php $__errorArgs = ['identificationNumber'];
+                                <input wire:model.defer="state.identificationNumber" class="form-control <?php $__errorArgs = ['identificationNumber'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -236,7 +226,7 @@ if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
-unset($__errorArgs, $__bag); ?>" id="name" aria-describedby="nameHelp" placeholder="Enter full name">
+unset($__errorArgs, $__bag); ?>" id="name" aria-describedby="nameHelp" placeholder="Nombre de usuario">
                         <?php $__errorArgs = ['name'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -261,7 +251,7 @@ if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
-unset($__errorArgs, $__bag); ?>" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+unset($__errorArgs, $__bag); ?>" id="email" aria-describedby="emailHelp" placeholder="Introduce el email">
                         <?php $__errorArgs = ['email'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -305,6 +295,89 @@ unset($__errorArgs, $__bag); ?>
                     <div class="form-group">
                         <label for="passwordConfirmation">Confirme la Contraseña</label>
                         <input type="password" wire:model.defer="state.password_confirmation" class="form-control" id="passwordConfirmation" placeholder="Confirme la Contraseña">
+                    </div>
+
+                    <div class="row mx-auto">
+                        <div class="col-xs-6 col-md-4 col-sm-4 col-4">
+                        <label for="cellphonecode">Operadora</label>
+                            <select wire:model.defer="state.cellphonecode" class="form-control <?php $__errorArgs = ['cellphonecode'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?> inputForm inputType" name="" id="cellphonecode">
+                                <option value="0">Seleccione</option>
+                                <option value="0412">0412</option>
+                                <option value="0414">0414</option>
+                                <option value="0424">0424</option>
+                                <option value="0416">0416</option>
+                                <option value="0426">0426</option>
+                            </select>
+                            <?php $__errorArgs = ['cellphonecode'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                            <div class="invalid-feedback">
+                                <?php echo e($message); ?>
+
+                            </div>
+                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                        </div>
+                        <div class="col-xs-6 col-md-8 col-sm-8 col-8">
+                        <label for="cellphone">Operadora</label>
+                            <input type="text" wire:model.defer="state.cellphone" class="form-control <?php $__errorArgs = ['cellphone'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?> " name="" id="cellphone">
+                            <?php $__errorArgs = ['cellphone'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                            <div class="invalid-feedback">
+                                <?php echo e($message); ?>
+
+                            </div>
+                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="address">Dirección</label>
+                        <input type="address" wire:model.defer="state.address" class="form-control <?php $__errorArgs = ['address'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" id="address" placeholder="Dirección">
+                        <?php $__errorArgs = ['address'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                        <div class="invalid-feedback">
+                            <?php echo e($message); ?>
+
+                        </div>
+                        <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                     </div>
 
                     <div class="form-group">
@@ -355,9 +428,16 @@ unset($__errorArgs, $__bag); ?>
     let divPrincipal = document.getElementById('divPrincipal')
     divPrincipal.appendChild(selectMetodoPago(0))  
     
+    comercio_id = window.livewire.find('<?php echo e($_instance->id); ?>').comercio_id
     
     window.addEventListener('show-formUser', function (event) {
         $('#formUser').modal('show');
+    });
+    window.addEventListener('hide-formUser', function (event) {
+        $('#formUser').modal('hide');
+        document.querySelector('#identificationNumber0').value = event.detail.identificationNumber
+        document.querySelector('#clienteName').value = event.detail.name
+        
     });
 </script>
 
@@ -392,16 +472,24 @@ unset($__errorArgs, $__bag); ?>
                 }else{
                     verifica.classList.add('d-none')   
                     document.querySelector('#clienteName').value = ""
+                    email =  ""
+                    identificationNac = "0"
+                    identificationNumber = ""
+                    cellphone = ""
+                    cellphonecode = "0"
+                    cliente_id = 0;
                 }
               }
             });
           },
           select: function (event, ui) {            
              $('#identificationNumber0').val(ui.item.identificationNumber);
-             cellphone =  ui.item.telefono
+             cliente_id = ui.item.identi
              email =  ui.item.email
              identificationNac = ui.item.identificationNac
              identificationNumber = ui.item.identificationNumber
+             cellphone = ui.item.cellphone
+             cellphonecode = ui.item.cellphonecode
 
              $('#temp').val(ui.item.identificationNumber);
 
