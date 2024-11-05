@@ -9,7 +9,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="/admin/dashboard">Inicio</a></li>
-                        <li class="breadcrumb-item active">Perfil de Usuario</li>
+                        <li class="breadcrumb-item active"><a href="/users">Usuarios</a></li>
                     </ol>
                 </div>
             </div>
@@ -25,7 +25,7 @@
                     <!-- Profile Image -->
                     <div class="card card-primary card-outline">
                         <div class="card-body box-profile">
-                            <div class="text-center" x-data="{ imagePreview: '{{ auth()->user()->avatar_url }}' }">
+                            <div class="text-center" x-data="{ imagePreview: '<?php echo e($user->avatar_url); ?>' }">
                                 <input wire:model="image" type="file" class="d-none" x-ref="image" x-on:change="
                                         reader = new FileReader();
                                         reader.onload = (event) => {
@@ -37,9 +37,9 @@
                                 <img x-on:click="$refs.image.click()" class="profile-user-img img-circle" x-bind:src="imagePreview ? imagePreview : '/backend/dist/img/user4-128x128.jpg'" alt="User profile picture">
                             </div>
 
-                            <h3 class="profile-username text-center">{{ auth()->user()->name }}</h3>
+                            <h3 class="profile-username text-center"><?php echo e($user->name); ?></h3>
 
-                            <p class="text-muted text-center">{{ auth()->user()->rol() }}</p>
+                            <p class="text-muted text-center"><?php echo e($user->rol()); ?></p>
                         </div>
                         <!-- /.card-body -->
                     </div>
@@ -64,23 +64,53 @@
                                         <div class="form-group row">
                                             <label for="inputName" class="col-sm-2 col-form-label">Name</label>
                                             <div class="col-sm-10">
-                                                <input wire:model.defer="state.name" type="text" class="form-control @error('name') is-invalid @enderror" id="inputName" placeholder="Name">
-                                                @error('name')
+                                                <input wire:model.defer="state.name" type="text" class="form-control <?php $__errorArgs = ['name'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" id="inputName" placeholder="Name">
+                                                <?php $__errorArgs = ['name'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
                                                 <div class="invalid-feedback">
-                                                    {{ $message}}
+                                                    <?php echo e($message); ?>
+
                                                 </div>
-                                                @enderror
+                                                <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
                                             <div class="col-sm-10">
-                                                <input wire:model.defer="state.email" type="email" class="form-control @error('email') is-invalid @enderror" id="inputEmail" placeholder="Email">
-                                                @error('email')
+                                                <input wire:model.defer="state.email" type="email" class="form-control <?php $__errorArgs = ['email'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" id="inputEmail" placeholder="Email">
+                                                <?php $__errorArgs = ['email'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
                                                 <div class="invalid-feedback">
-                                                    {{ $message}}
+                                                    <?php echo e($message); ?>
+
                                                 </div>
-                                                @enderror
+                                                <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -94,41 +124,33 @@
                                 <div class="tab-pane" :class="currentTab === 'changePassword' ? 'active' : ''" id="changePassword" wire:ignore.self>
                                     <form wire:submit.prevent="changePassword" class="form-horizontal">
                                         <div class="form-group row">
-                                            <label for="currentPassword" class="col-sm-3 col-form-label">Contraseña
-                                                Actual</label>
-                                            <div class="col-sm-9">
-                                                <input wire:model.defer="state.current_password" type="password" class="form-control @error('current_password') is-invalid @enderror" id="currentPassword" placeholder="Current Password">
-                                                @error('current_password')
-                                                <div class="invalid-feedback">
-                                                    {{ $message}}
-                                                </div>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
                                             <label for="newPassword" class="col-sm-3 col-form-label">Nueva
                                                 Contraseña</label>
                                             <div class="col-sm-9">
-                                                <input wirse:model.defer="state.password" type="password" class="form-control @error('password') is-invalid @enderror" id="newPassword" placeholder="New Password">
-                                                @error('password')
+                                                <input wirse:model.defer="state.password" type="password" class="form-control <?php $__errorArgs = ['password'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" id="newPassword" placeholder="New Password">
+                                                <?php $__errorArgs = ['password'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
                                                 <div class="invalid-feedback">
-                                                    {{ $message}}
+                                                    <?php echo e($message); ?>
+
                                                 </div>
-                                                @enderror
+                                                <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                                             </div>
                                         </div>
-                                        <div class="form-group row">
-                                            <label for="passwordConfirmation" class="col-sm-3 col-form-label">Confirme
-                                                Nueva Contraseña</label>
-                                            <div class="col-sm-9">
-                                                <input wire:model.defer="state.password_confirmation" type="password" class="form-control @error('password_confirmation') is-invalid @enderror" id="passwordConfirmation" placeholder="Confirm New Password">
-                                                @error('password_confirmation')
-                                                <div class="invalid-feedback">
-                                                    {{ $message}}
-                                                </div>
-                                                @enderror
-                                            </div>
-                                        </div>
+                                        
                                         <div class="form-group row">
                                             <div class="offset-sm-3 col-sm-9">
                                                 <button type="submit" class="btn btn-success"><i class="fa fa-save mr-1"></i> Guardar Cambios</button>
@@ -161,12 +183,27 @@
                                         <div class="form-group row">
                                             <label for="inputAddress" class="col-sm-2 col-form-label">Dirección</label>
                                             <div class="col-sm-10">
-                                                <input wire:model.defer="state.address" type="text" class="form-control @error('address') is-invalid @enderror" id="inputAddress" placeholder="Dirección">
-                                                @error('address')
+                                                <input wire:model.defer="state.address" type="text" class="form-control <?php $__errorArgs = ['address'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" id="inputAddress" placeholder="Dirección">
+                                                <?php $__errorArgs = ['address'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
                                                 <div class="invalid-feedback">
-                                                    {{ $message}}
+                                                    <?php echo e($message); ?>
+
                                                 </div>
-                                                @enderror
+                                                <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -192,21 +229,21 @@
 
 </div>
 
-@push('styles')
+<?php $__env->startPush('styles'); ?>
 <style>
     .profile-user-img:hover {
         background-color: blue;
         cursor: pointer;
     }
 </style>
-@endpush
+<?php $__env->stopPush(); ?>
 
-@push('alpine-plugins')
+<?php $__env->startPush('alpine-plugins'); ?>
 <!-- Alpine Plugins -->
 <script defer src="https://unpkg.com/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
-@endpush
+<?php $__env->stopPush(); ?>
 
-@push('js')
+<?php $__env->startPush('js'); ?>
 <script>
     $(document).ready(function () {
         Livewire.on('nameChanged', (changedName) => {
@@ -214,4 +251,5 @@
         })
     });
 </script>
-@endpush
+<?php $__env->stopPush(); ?>
+<?php /**PATH C:\Users\Personal\Documents\Proyectos\github\pasarela\resources\views/livewire/admin/users/update-profile-user.blade.php ENDPATH**/ ?>

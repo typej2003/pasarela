@@ -5,12 +5,15 @@ namespace App\Http\Livewire\Afiliado;
 use App\Http\Livewire\Admin\AdminComponent;
 use App\Models\User;
 use App\Models\Comercio;
+use App\Models\Area;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Livewire\WithFileUploads;
 use Illuminate\Validation\Rule;
 
 class ListComercios extends AdminComponent
 {
+	use WithFileUploads;
 
 	public $state = [];
 
@@ -18,7 +21,7 @@ class ListComercios extends AdminComponent
 
 	public $showEditModal = false;
 
-	public $comercio_idBeingRemoved = null;
+	public $comercioIdBeingRemoved = null;
 
 	public $searchTerm = null;
 
@@ -28,11 +31,17 @@ class ListComercios extends AdminComponent
 
     public $sortDirection = 'desc';
 
-    public $user_id = 0;
+    public $userId = 0;
 
-    public function mount($user_id = 0)
+	public $photo;
+
+	protected $listeners = [
+		'generarKeyword'
+   		];
+
+    public function mount($userId = 0)
     {
-        $this->user_id = $user_id;
+        $this->userId = $userId;
     }
 
 	public function changeRole(Comercio $comercio, $status)
@@ -51,24 +60,40 @@ class ListComercios extends AdminComponent
 
 	public function addNew()
 	{   
-        $user_id = $this->user_id;
+        $userId = $this->userId;
 
 		$this->reset();
 
-        $this->user_id = $user_id;
+        $this->userId = $userId;
 
 		$this->showEditModal = false;
 
 		$this->dispatchBrowserEvent('show-form');
 	}
 
+	public function generarKeyword($name)
+	{
+		$this->state['keyword'] = strtolower(str_replace(' ', '', $this->state['name']));
+
+		$this->dispatchBrowserEvent('getKeyword', ['keyword' => $this->state['keyword']]);
+		
+
+	}
+
 	public function createComercio()
 	{
 		$validatedData = Validator::make($this->state, [
+			'area_id'=> 'required|not_in:0',
 			'name' => 'required',
 		])->validate();
 
-        $validatedData['user_id'] = $this->user_id;
+		if ($this->photo) {
+			$validatedData['avatar'] = $this->photo->store('/', 'avatarscomercios');
+		}
+
+        $validatedData['user_id'] = $this->userId;
+
+		$validatedData['keyword'] = $this->state['keyword'];
 
 		Comercio::create($validatedData);
 
@@ -79,11 +104,11 @@ class ListComercios extends AdminComponent
 
 	public function edit(Comercio $comercio)
 	{
-		$user_id = $this->user_id;
+		$userId = $this->userId;
 
 		$this->reset();
 
-        $this->user_id = $user_id;
+        $this->userId = $userId;
 
 		$this->showEditModal = true;
 
@@ -97,28 +122,35 @@ class ListComercios extends AdminComponent
 	public function updateComercio()
 	{
 		$validatedData = Validator::make($this->state, [
-			'name' => 'required',
+			'name' => 'required',			
+			'area_id' => 'required',
 		])->validate();
+
+		$validatedData['keyword'] = $this->state['keyword'];
+
+		if ($this->photo) {
+			$validatedData['avatar'] = $this->photo->store('/', 'avatarscomercios');
+		}
 
 		$this->comercio->update($validatedData);
 
 		$this->dispatchBrowserEvent('hide-form', ['message' => 'Comercio actualizado satisfactoriamente!']);
 	}
 
-	public function confirmComercioRemoval($comercio_id)
+	public function confirmComercioRemoval($comercioId)
 	{
-		$this->comercio_idBeingRemoved = $comercio_id;
+		$this->comercioIdBeingRemoved = $comercioId;
 
 		$this->dispatchBrowserEvent('show-delete-modal');
 	}
 
 	public function deleteComercio()
 	{
-		$user = User::findOrFail($this->user_idBeingRemoved);
+		$comercio = Comercio::findOrFail($this->comercioIdBeingRemoved);
 
-		$user->delete();
+		$comercio->delete();
 
-		$this->dispatchBrowserEvent('hide-delete-modal', ['message' => 'Usuario eliminado satisfactoriamente!']);
+		$this->dispatchBrowserEvent('hide-delete-modal', ['message' => 'Comercio eliminado satisfactoriamente!']);
 	}
 
     public function sortBy($columnName)
@@ -144,11 +176,11 @@ class ListComercios extends AdminComponent
 
     public function render()
     {
-        if($this->user_id == 0 ){
+        if($this->userId == 0 ){
             $comercios = Comercio::query();
         }else{
             $comercios = Comercio::query()
-                ->where('user_id', $this->user_id);
+                ->where('user_id', $this->userId);
         }
         
     	$comercios = $comercios
@@ -156,12 +188,15 @@ class ListComercios extends AdminComponent
                 $q->where('name', 'like', '%'.$this->searchTerm.'%');                
             })
     		->orderBy($this->sortColumnName, $this->sortDirection)
-            ->paginate(5);
+            ->paginate(15);
         
-        $user = User::find($this->user_id);
+        $user = User::find($this->userId);
+
+		$areas = Area::all();
 		
         return view('livewire.afiliado.list-comercios', [
             'user'  => $user,
+			'areas'  => $areas,
         	'comercios' => $comercios,
         ]);
     }

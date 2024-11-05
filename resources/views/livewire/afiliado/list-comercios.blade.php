@@ -7,7 +7,7 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Tablero</a></li>
+                        <li class="breadcrumb-item"><a href="/admin/dashboard">Escritorio</a></li>
                         <li class="breadcrumb-item active">Comercios</li>
                     </ol>
                 </div><!-- /.col -->
@@ -71,17 +71,30 @@
                                     <tr>
                                         <th scope="row">{{ $comercios->firstItem() + $index }}</th>
                                         <td>
+                                            <img src="{{ $comercio->avatar_url }}" style="width: 50px;" class="img img-circle mr-1" alt="">
                                             {{ $comercio->name }}
                                         </td>
                                         <td>{{ $comercio->OperacionNoConfirmada() }}</td>
                                         <td>{{ $comercio->created_at->toFormattedDate() ?? 'N/A' }}</td>
-                                        <td>
+                                        <td class="fs-2">
                                             <a href="/listTransacciones/{{$comercio->id }}">
-                                            <i class="fa fa-solid fa-book mr-2"></i>
+                                                <i class="fa fa-solid fa-file-invoice-dollar mx-2"></i>
+                                            </a>
+
+                                            <a href="/listCategories/{{$comercio->id }}">
+                                                <i class="fa fa-solid fa-list mx-2"></i>
+                                            </a>
+
+                                            <a href="/listProducts/{{$comercio->id }}">
+                                                <img width="35px" src="/img/icon-motor.png" alt="">
+                                            </a>
+
+                                            <a href="/listMetodosPagosC/{{$comercio->id }}">
+                                                <i class="fa fa-regular fa-credit-card mx-2"></i>
                                             </a>
 
                                             <a href="" wire:click.prevent="edit({{ $comercio }})">
-                                                <i class="fa fa-edit mr-2"></i>
+                                                <i class="fa fa-edit mr-2 mx-2"></i>
                                             </a>
 
                                             <a href="" wire:click.prevent="confirmComercioRemoval({{ $comercio->id }})">
@@ -129,15 +142,86 @@
                         </button>
                     </div>
                     <div class="modal-body">
+
+                        <div class="form-group">
+                            <label for="area_id">Área Económica</label>
+                            <select wire:model.defer="state.area_id" class="form-control @error('area_id') is-invalid @enderror" id="area_id">
+                                <option value="0">Seleccione una opción</option>
+                                @foreach($areas as $area)
+                                    <option value="{{ $area->id }}">{{ $area->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('area_id')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
                         
                         <div class="form-group">
                             <label for="name">Nombre</label>
-                            <input type="text" wire:model.defer="state.name" class="form-control @error('name') is-invalid @enderror" id="name" aria-describedby="nameHelp" placeholder="Enter full name">
+                            <input type="text" wire:model.defer="state.name" class="form-control @error('name') is-invalid @enderror" id="name" aria-describedby="nameHelp" placeholder="Introduzca el Nombre">
                             @error('name')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>
                             @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="keyword">Indicador Único</label>
+                            <input type="text" wire:model.defer="state.keyword" class="form-control @error('keyword') is-invalid @enderror" id="keyword" aria-describedby="keywordHelp" placeholder="Identificador Único" Readonly>
+                            @error('keyword')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                            <script>
+                                let name = document.querySelector('#name')
+                                name.addEventListener('blur', function(){
+                                    valor = document.getElementById("name").value;
+                                    if( valor == null || valor.length == 0 || /^\s+$/.test(valor) ) { 
+                                        return false;
+                                    }
+                                    Livewire.emit('generarKeyword', valor);
+
+                                    window.addEventListener('getKeyword', event => {                
+                                        let keyword = event.detail.keyword
+
+                                        document.querySelector('#keyword').value= keyword
+                                    
+                                    })
+                                    
+                                    
+                                })
+                            </script>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="customFile">Logo del Comercio</label>
+                            <div class="custom-file">
+                                <div x-data="{ isUploading: false, progress: 5 }" x-on:livewire-upload-start="isUploading = true" x-on:livewire-upload-finish="isUploading = false; progress = 5" x-on:livewire-upload-error="isUploading = false" x-on:livewire-upload-progress="progress = $event.detail.progress">
+                                    <input wire:model="photo" type="file" class="custom-file-input" id="customFile">
+                                    <div x-show.transition="isUploading" class="progress progress-sm mt-2 rounded">
+                                        <div class="progress-bar bg-primary progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" x-bind:style="`width: ${progress}%`">
+                                            <span class="sr-only">40% Completo (exito)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <label class="custom-file-label" for="customFile">
+                                    @if ($photo)
+                                    {{ $photo->getClientOriginalName() }}
+                                    @else
+                                    Seleccione el logo
+                                    @endif
+                                </label>
+                            </div>
+
+                            @if ($photo)
+                            <img src="{{ $photo->temporaryUrl() }}" class="img d-block mt-2 w-100 rounded">
+                            @else
+                            <img src="{{ $state['avatar_url'] ?? '' }}" class="img d-block mb-2 w-100 rounded">
+                            @endif
                         </div>
 
                     </div>

@@ -9,7 +9,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="/admin/dashboard">Inicio</a></li>
-                        <li class="breadcrumb-item active">Perfil de Usuario</li>
+                        <li class="breadcrumb-item active"><a href="/users">Usuarios</a></li>
                     </ol>
                 </div>
             </div>
@@ -25,7 +25,7 @@
                     <!-- Profile Image -->
                     <div class="card card-primary card-outline">
                         <div class="card-body box-profile">
-                            <div class="text-center" x-data="{ imagePreview: '{{ auth()->user()->avatar_url }}' }">
+                            <div class="text-center" x-data="{ imagePreview: '{{ $user->avatar_url }}' }">
                                 <input wire:model="image" type="file" class="d-none" x-ref="image" x-on:change="
                                         reader = new FileReader();
                                         reader.onload = (event) => {
@@ -37,9 +37,9 @@
                                 <img x-on:click="$refs.image.click()" class="profile-user-img img-circle" x-bind:src="imagePreview ? imagePreview : '/backend/dist/img/user4-128x128.jpg'" alt="User profile picture">
                             </div>
 
-                            <h3 class="profile-username text-center">{{ auth()->user()->name }}</h3>
+                            <h3 class="profile-username text-center">{{ $user->name }}</h3>
 
-                            <p class="text-muted text-center">{{ auth()->user()->rol() }}</p>
+                            <p class="text-muted text-center">{{ $user->rol() }}</p>
                         </div>
                         <!-- /.card-body -->
                     </div>
@@ -94,18 +94,6 @@
                                 <div class="tab-pane" :class="currentTab === 'changePassword' ? 'active' : ''" id="changePassword" wire:ignore.self>
                                     <form wire:submit.prevent="changePassword" class="form-horizontal">
                                         <div class="form-group row">
-                                            <label for="currentPassword" class="col-sm-3 col-form-label">Contraseña
-                                                Actual</label>
-                                            <div class="col-sm-9">
-                                                <input wire:model.defer="state.current_password" type="password" class="form-control @error('current_password') is-invalid @enderror" id="currentPassword" placeholder="Current Password">
-                                                @error('current_password')
-                                                <div class="invalid-feedback">
-                                                    {{ $message}}
-                                                </div>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
                                             <label for="newPassword" class="col-sm-3 col-form-label">Nueva
                                                 Contraseña</label>
                                             <div class="col-sm-9">
@@ -117,18 +105,7 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                        <div class="form-group row">
-                                            <label for="passwordConfirmation" class="col-sm-3 col-form-label">Confirme
-                                                Nueva Contraseña</label>
-                                            <div class="col-sm-9">
-                                                <input wire:model.defer="state.password_confirmation" type="password" class="form-control @error('password_confirmation') is-invalid @enderror" id="passwordConfirmation" placeholder="Confirm New Password">
-                                                @error('password_confirmation')
-                                                <div class="invalid-feedback">
-                                                    {{ $message}}
-                                                </div>
-                                                @enderror
-                                            </div>
-                                        </div>
+                                        
                                         <div class="form-group row">
                                             <div class="offset-sm-3 col-sm-9">
                                                 <button type="submit" class="btn btn-success"><i class="fa fa-save mr-1"></i> Guardar Cambios</button>

@@ -15,11 +15,18 @@ class CreateSettingsTable extends Migration
     {
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')
+                ->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
             $table->string('site_name')->nullable()->default(null);
             $table->string('site_email')->nullable()->default(null);
             $table->string('site_title')->nullable()->default(null);
             $table->string('footer_text')->nullable()->default(null);
             $table->boolean('sidebar_collapse')->default(false);
+            $table->string('currency')->nullable()->default('$');
+            $table->string('api_bcv')->nullable()->default('NO');
             $table->timestamps();
         });
     }

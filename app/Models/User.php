@@ -15,6 +15,7 @@ class User extends Authenticatable
     const ROLE_ADMIN = 'admin';
     const ROLE_USER = 'user';
     const ROLE_AFIL = 'afiliado';
+    const ROLE_CLIENTE = 'cliente';
 
     /**
      * The attributes that are mass assignable.
@@ -93,6 +94,15 @@ class User extends Authenticatable
         return true;
     }
 
+    public function isCliente()
+    {
+        if ($this->role !== self::ROLE_CLIENTE) {
+            return false;
+        }
+
+        return true;
+    }
+
     public function datosbasicos()
     {
         return $this->hasOne(DatosBasicos::class)->withDefault([
@@ -121,6 +131,10 @@ class User extends Authenticatable
         {
             return Comercio::all();
         }
+        if($this->role=='afiliado')
+        {
+            return Comercio::where('user_id', $this->id)->get();
+        }
         return "0";
     }
 
@@ -130,5 +144,22 @@ class User extends Authenticatable
             ->where('id', $this->id)
             ->where('status', 'norevisado')
             ->count();
+    }
+
+    public function rol()
+    {
+        switch ($this->role) {
+            case 'admin':
+                return 'Administrador';
+                break;
+            
+            case 'afiliado':
+                return 'Afiliado';
+                break;
+
+            case 'cliente':
+                return 'Cliente';
+                break;
+        }
     }
 }

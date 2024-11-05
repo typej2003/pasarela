@@ -57,7 +57,7 @@
                                         <th scope="row">{{ $users->firstItem() + $index }}</th>
                                         <td>
                                             <img src="{{ $user->avatar_url }}" style="width: 50px;" class="img img-circle mr-1" alt="">
-                                            {{ $user->name }}
+                                            <a href="/updateProfileuser/{{ $user->id }}">{{ $user->name }}</a>
                                         </td>
                                         <td>{{ $user->email }}</td>
                                         <td>{{ $user->datosbasicos->cellphone }}</td>
@@ -65,8 +65,8 @@
                                         <td>
                                             <select class="form-control" wire:change="changeRole({{ $user }}, $event.target.value)">
                                                 <option value="admin" {{ ($user->role === 'admin') ? 'selected' : '' }}>ADMIN</option>
-                                                <option value="user" {{ ($user->role === 'user') ? 'selected' : '' }}>USER</option>
                                                 <option value="afiliado" {{ ($user->role === 'afiliado') ? 'selected' : '' }}>AFILIADO</option>
+                                                <option value="cliente" {{ ($user->role === 'cliente') ? 'selected' : '' }}>CLIENTE</option>
                                             </select>
                                         </td>
                                         <td>
@@ -129,6 +129,7 @@
                                 <option value="0">SELECCIONE..</option>
                                 <option value="admin">ADMINISTRADOR</option>
                                 <option value="afiliado">AFILIADO</option>
+                                <option value="cliente">CLIENTE</option>
                                 <option value="user">USER</option>
                             </select>
                             @error('role')

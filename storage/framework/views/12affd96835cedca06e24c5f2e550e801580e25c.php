@@ -28,35 +28,7 @@
           </a>
         </li>
         <!-- PROBAR RECURSOS -->
-        <li class="nav-item">
-          <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-table"></i>
-            <p>
-              Recursos
-              <i class="fas fa-angle-left right"></i>
-            </p>
-          </a>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="/api/apicontroller" class="nav-link <?php echo e(request()->is('api.apicontroller') ? 'active' : ''); ?>">
-                <i class="far fa-circle nav-icon"></i>
-                <p>
-                  Probar Api
-                </p>
-              </a>
-            </li>
-
-
-            <li class="nav-item">
-              <a href="<?php echo e(route('MakePayment', 0)); ?>" class="nav-link <?php echo e(request()->is('MakePayment') ? 'active' : ''); ?>">
-                <i class="far fa-circle nav-icon"></i>
-                <p>
-                  Hacer Operacion
-                </p>
-              </a>
-            </li>
-          </ul>
-        </li>
+        
         <!-- Admin -->
         <?php if(auth()->user()->role == 'admin'): ?>
           
@@ -70,14 +42,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="<?php echo e(route('listComercios', 0)); ?>" class="nav-link <?php echo e(request()->is('listComercios') ? 'active' : ''); ?>">
+                <a href="<?php echo e(route('listComercios', 1)); ?>" class="nav-link <?php echo e(request()->is('listComercios') ? 'active' : ''); ?>">
                   <i class="fas fa-solid fa-building"></i> 
                   <p>
                     Todos Comercios
                   </p>
                 </a>
-              </li>
-              
+              </li>              
               <?php $__currentLoopData = auth()->user()->showComercios(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $comercio): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>  
                 <li class="nav-item">
                   <a href="#" class="nav-link">
@@ -127,37 +98,116 @@
                   </ul>
                 </li>
               <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-
               
             </ul>
           </li>
+          <li class="nav-item">
+            <a href="<?php echo e(route('admin.users')); ?>" class="nav-link <?php echo e(request()->is('users') ? 'active' : ''); ?>">
+              <i class="nav-icon fas fa-users"></i>
+              <p>
+                Usuarios
+              </p>
+            </a>
+          </li>
+        <?php endif; ?>
+        <?php if(auth()->user()->role == 'afiliado'): ?>
+        <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="fas fa-solid fa-building"></i>  
+              <p>
+                Comercios
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="<?php echo e(route('listComercios', 1)); ?>" class="nav-link <?php echo e(request()->is('listComercios') ? 'active' : ''); ?>">
+                  <i class="fas fa-solid fa-building"></i> 
+                  <p>
+                    Todos Comercios
+                  </p>
+                </a>
+              </li>
+              
+              <?php $__currentLoopData = auth()->user()->showComercios(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $comercio): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>  
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-table"></i>
+                    <p>
+                      <?php echo e($comercio->name); ?>
+
+                      <i class="fas fa-angle-left right"></i>
+                    </p>
+                  </a>
+                  <ul class="nav nav-treeview">
+
+                    <li class="nav-item">
+                      <a href="<?php echo e(route('showPasarela',  $comercio->id)); ?>" class="nav-link <?php echo e(request()->is('showPasarela') ? 'active' : ''); ?>">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>
+                          Pasarela
+                        </p>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="<?php echo e(route('listEmployesComercio', $comercio->id)); ?>" class="nav-link <?php echo e(request()->is('listEmployesComercio') ? 'active' : ''); ?>">
+                        <i class="nav-icon fas fa-solid fa-building-user"></i>
+                        <p>
+                          Empleados
+                        </p>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="<?php echo e(route('listComercios',  $comercio->id)); ?>" class="nav-link <?php echo e(request()->is('listComercios') ? 'active' : ''); ?>">
+                        <i class="nav-icon fas fa-cog"></i>
+                        <p>
+                          Configurar
+                        </p>
+                      </a>
+                    </li>
+                    
+                    <li class="nav-item">
+                      <a href="<?php echo e(route('listMetodosPagosC', $comercio->id)); ?>" class="nav-link <?php echo e(request()->is('listMetodosPagosC') ? 'active' : ''); ?>">
+                        <i class="nav-icon fas fa-comments"></i>
+                        <p>
+                          Métodos de Pagos
+                        </p>
+                      </a>
+                    </li>
+
+                    <li class="nav-item">
+                      <a href="<?php echo e(route('listTransacciones', $comercio->id)); ?>" class="nav-link <?php echo e(request()->is('listTransacciones') ? 'active' : ''); ?>">
+                      <i class="fa fa-solid fa-file-invoice-dollar"></i>
+                        <p>
+                          Transacciones
+                        </p>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+              <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>              
+            </ul>
+          </li>
+
         <?php endif; ?>
 
-        
-        <li class="nav-item">
-          <a href="<?php echo e(route('admin.users')); ?>" class="nav-link <?php echo e(request()->is('admin/users') ? 'active' : ''); ?>">
-            <i class="nav-icon fas fa-users"></i>
-            <p>
-              Usuarios
-            </p>
-          </a>
-        </li>
-
-        
+        <?php if(auth()->user()->role == 'cliente'): ?>
+          
+        <?php endif; ?>
         <!-- CONFIGURACION -->
         <li class="nav-item">
           <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-cog"></i>
+            <i class="nav-icon fas fa-solid fa-list"></i>
             <p>
-              Configuración
+              Lista
             </p>
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
               <a href="<?php echo e(route('listMetodosPagos')); ?>" class="nav-link <?php echo e(request()->is('listMetodosPagos') ? 'active' : ''); ?>">
-                <i class="far fa-circle nav-icon"></i>
+                <i class="nav-icon fas fa-solid fa-list"></i>
                 <p>
-                  Métodos de Pagos
+                  Sub Lista
                 </p>
               </a>
             </li>
@@ -177,7 +227,7 @@
           <a href="<?php echo e(route('admin.settings')); ?>" class="nav-link <?php echo e(request()->is('admin/settings') ? 'active' : ''); ?>">
             <i class="nav-icon fas fa-cog"></i>
             <p>
-              Settings
+              Configuración
             </p>
           </a>
         </li>
@@ -186,7 +236,7 @@
           <a x-ref="profileLink" href="<?php echo e(route('admin.profile.edit')); ?>" class="nav-link <?php echo e(request()->is('admin/profile') ? 'active' : ''); ?>">
             <i class="nav-icon fas fa-user"></i>
             <p>
-              Profile
+              Perfil
             </p>
           </a>
         </li>

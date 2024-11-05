@@ -1,6 +1,6 @@
 <div>
         <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.rtl.min.css" integrity="sha384-WJUUqfoMmnfkBLne5uxXj+na/c7sesSJ32gI7GfCk4zO4GthUKhSEGyvQ839BC51" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.rtl.min.css" integrity="sha384-WJUUqfoMmnfkBLne5uxXj+na/c7sesSJ32gI7GfCk4zO4GthUKhSEGyvQ839BC51" crossorigin="anonymous"> -->
     <script src="https://kit.fontawesome.com/03cf5139f1.js"></script>
 
     <link rel="stylesheet" href="/css/pasarela.css" class="rel">
@@ -428,7 +428,6 @@ unset($__errorArgs, $__bag); ?>
     let divPrincipal = document.getElementById('divPrincipal')
     divPrincipal.appendChild(selectMetodoPago(0))  
     
-    comercio_id = window.livewire.find('<?php echo e($_instance->id); ?>').comercio_id
     
     window.addEventListener('show-formUser', function (event) {
         $('#formUser').modal('show');

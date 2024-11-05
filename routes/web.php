@@ -12,6 +12,9 @@ use App\Http\Livewire\Admin\Settings\ListMetodosPagos;
 
 use App\Http\Livewire\Recursos\ApiController;
 
+use App\Http\Livewire\Error\ShowError;
+
+use App\Http\Livewire\Admin\Users\UpdateProfileUser;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -45,3 +48,6 @@ Route::controller(SearchController::class)->group(function(){
 
 Route::get('/enviarData', [SearchAfiliado::class, 'enviarData'])->name('enviardata');
 
+Route::get('/errorFound/{error}', ShowError::class)->name('errorFound');
+
+Route::get('/updateProfileuser/{user_id}', UpdateProfileUser::class)->name('users');

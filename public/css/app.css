@@ -49,3 +49,5 @@
 .nav-treeview .nav-item .nav-link{color: #000;}
 .nav-treeview .nav-item .nav-link:hover{color: #4447eb; font-weight: bold;}
 .nav-treeview{height: auto;}
+
+.info a{color: white;font-weight: bold;}

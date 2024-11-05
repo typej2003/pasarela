@@ -26,10 +26,6 @@ class CreateTransaccionsTable extends Migration
                 ->onDelete('cascade')
                 ->onUpdate('cascade'); 
             $table->unsignedBigInteger('cliente_id');
-            // $table->foreign('cliente_id')->references('id')
-            //     ->on('clients')
-            //     ->onDelete('cascade')
-            //     ->onUpdate('cascade');            
             $table->string('paymentId')->nullable();
             $table->string('codigoFactura')->nullable();
             $table->string('metodo')->nullable();

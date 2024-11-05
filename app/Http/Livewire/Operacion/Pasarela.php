@@ -30,19 +30,41 @@ class Pasarela extends Component
     public function mount($comercio_id = 1)
 	{
 		$this->comercio_id = $comercio_id;
-		
+        $this->autenticarComercio($this->comercio_id);
 	}
+
+    public function autenticarComercio($comercio_id)
+    {
+        $comercio = Comercio::find($comercio_id);
+        if($comercio)
+        {
+            $user_id = $comercio->user_id;
+            if(auth()->user()->id == $user_id){
+                return true;
+            }else{
+                return redirect('/errorFound/11');
+            }
+            
+        }else{
+            return redirect('/errorFound/10');
+        }
+    }
 
     public function addNew()
 	{
+        $this->autenticarComercio($this->comercio_id);
+
         $tokenId = $this->tokenId;
+        $comercio_id = $this->comercio_id;
 		$this->reset();
         $this->tokenId = $tokenId;
+        $this->comercio_id = $comercio_id;
 
         $this->state['identificationNac'] = "V";
 		$this->showEditModal = false;
 
 		$this->dispatchBrowserEvent('show-formUser');
+        
 	}
 
     public function createUser()

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDatosBasicosTable extends Migration
+class CreateTasasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,20 @@ class CreateDatosBasicosTable extends Migration
      */
     public function up()
     {
-        Schema::create('datos_basicos', function (Blueprint $table) {
+        Schema::create('tasas', function (Blueprint $table) {
             $table->id();
-            //foreign key
+            $table->string('tasa');
+            $table->string('status')->default('activo');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')
                 ->on('users')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
-            $table->string('cellphonecode')->default();
-            $table->string('cellphone')->default();
-            $table->string('address')->default();
+            $table->unsignedBigInteger('comercio_id');
+            $table->foreign('comercio_id')->references('id')
+                ->on('comercios')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
             $table->timestamps();
         });
     }
@@ -35,6 +38,6 @@ class CreateDatosBasicosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('datos_basicos');
+        Schema::dropIfExists('tasas');
     }
 }

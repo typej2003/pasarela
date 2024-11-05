@@ -18,7 +18,8 @@ class Administrator
     {
         if (auth()->check() && (auth()->user()->isAdmin() 
             || auth()->user()->isUser()
-            || auth()->user()->isAfil())) 
+            || auth()->user()->isAfil()
+            || auth()->user()->isCliente())) 
         {
             return $next($request);
         }

@@ -1,11 +1,11 @@
 <?php
 
 namespace Database\Seeders;
-use Illuminate\Support\Facades\DB;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
-class ComercioSeeder extends Seeder
+class BrandSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,11 +14,9 @@ class ComercioSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('comercios')->insert([
-            'area_id' => '2',
-            'user_id' => '1',
-            'keyword' => 'comercio1',
-            'name' => 'Comercio 1',
+        DB::table('brands')->insert([
+            'name' => 'MARCA',
+            'comercio_id' => '1',
             'created_at' => '2022-05-16 12:20:36',
             'updated_at' => '2022-05-16 12:20:36'
         ]);
